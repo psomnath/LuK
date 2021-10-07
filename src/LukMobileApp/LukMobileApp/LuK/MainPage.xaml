@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LuK.MainPage">
+
+    <StackLayout>
+        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+            <Label  Text="LuK" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+        </Frame>
+        <Label Text="Match Found!" FontSize="Title" Padding="30,10,30,10"/>
+        <Label Text="Please Report The License Plate Immediately" FontSize="16" Padding="30,0,30,0"/>
+        <Label HorizontalOptions="Center" VerticalOptions="Center" x:Name="LicensePlate" Text="123" FontSize="25" Margin="100, 10"/>
+
+    </StackLayout>
+
+</ContentPage>
