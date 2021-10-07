@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Luk.Api.Controllers
 {
     [ApiController]
-    [Route("[amberalert]")]
+    [Route("amberalert")]
     public class AmberAlertController : ControllerBase
     {
         private readonly ILogger<AmberAlertController> _logger;
