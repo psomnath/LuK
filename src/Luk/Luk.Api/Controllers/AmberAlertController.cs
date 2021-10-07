@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 namespace Luk.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[amberalert]")]
     public class AmberAlertController : ControllerBase
     {
-
         private readonly ILogger<AmberAlertController> _logger;
 
         public AmberAlertController(ILogger<AmberAlertController> logger)
@@ -20,6 +19,7 @@ namespace Luk.Api.Controllers
         }
 
         [HttpGet]
+
         public IEnumerable<AlertInfo> Get()
         {
             var sampleAlerts = new List<AlertInfo>()
