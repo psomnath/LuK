@@ -45,7 +45,8 @@ namespace LuK.Droid
             {
                 string title = intent.GetStringExtra(AndroidNotificationManager.TitleKey);
                 string message = intent.GetStringExtra(AndroidNotificationManager.MessageKey);
-                DependencyService.Get<INotificationManager>().ReceiveNotification(title, message);
+                string name = intent.GetStringExtra(AndroidNotificationManager.Name);
+                DependencyService.Get<INotificationManager>().ReceiveNotification(title, message, name);
             }
         }
     }

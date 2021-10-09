@@ -2,15 +2,21 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LuK.MainPage">
-
-    <StackLayout>
-        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+    <StackLayout IsVisible="true">
+            <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
             <Label  Text="LuK" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
-        </Frame>
-        <Label Text="Match Found!" FontSize="Title" Padding="30,10,30,10"/>
-        <Label Text="Please Report The License Plate Immediately" FontSize="16" Padding="30,0,30,0"/>
-        <Label HorizontalOptions="Center" VerticalOptions="Center" x:Name="LicensePlate" Text="123" FontSize="25" Margin="100, 10"/>
-
+            </Frame>
+        <Button HorizontalOptions="Center" x:Name="TestButton" Text="Test Notification" Clicked="OnSendClick"/>
+        <Label Text="Welcome To LuK" FontSize="Title" Padding="30,10,30,10" HorizontalOptions="Center" x:Name="WelcomeText"/>
+        <Label Text="Match Found!" x:Name="Message" FontSize="Title" Padding="30,10,30,10" IsVisible="false" HorizontalOptions="Center"/>
+        <Label Text="Please Report The License Plate Immediately" FontSize="16" Padding="30,0,30,0" IsVisible="false" x:Name="TakeAction" HorizontalOptions="Center"/>
+        <Label Text="Help save lives. Respond to Amber Alerts!" FontSize="16" Padding="30,0,30,0" x:Name="AppDescription" HorizontalOptions="Center"/>
+        <Label HorizontalOptions="Center" VerticalOptions="Center" x:Name="LicensePlate"  FontSize="25" Margin="100, 10"/>
+       
     </StackLayout>
+    
+
+       
+
 
 </ContentPage>

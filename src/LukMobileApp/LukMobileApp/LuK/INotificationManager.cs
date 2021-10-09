@@ -8,7 +8,7 @@ namespace LuK
     {
         event EventHandler NotificationReceived;
         void Initialize();
-        void SendNotification(string title, string message);
-        void ReceiveNotification(string title, string message);
+        void SendNotification(string title, string message, string name);
+        void ReceiveNotification(string title, string message, string name);
     }
 }

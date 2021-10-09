@@ -22,7 +22,7 @@ namespace LocalNotifications.iOS
             });
         }
 
-        public void SendNotification(string title, string message)
+        public void SendNotification(string title, string message, string name)
         {
             // EARLY OUT: app doesn't have permissions
             if (!hasNotificationsPermission)
@@ -55,12 +55,13 @@ namespace LocalNotifications.iOS
             });
         }
 
-        public void ReceiveNotification(string title, string message)
+        public void ReceiveNotification(string title, string message, string name)
         {
             var args = new LuK.NotificationEventArgs()
             {
                 Title = title,
-                Message = message
+                Message = message,
+                Name = name
             };
             NotificationReceived?.Invoke(null, args);
         }

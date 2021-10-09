@@ -19,6 +19,7 @@ namespace LocalNotifications.Droid
 
         public const string TitleKey = "title";
         public const string MessageKey = "message";
+        public const string Name = "name";
 
         bool channelInitialized = false;
         int messageId = 0;
@@ -41,7 +42,7 @@ namespace LocalNotifications.Droid
             }
         }
 
-        public void SendNotification(string title, string message)
+        public void SendNotification(string title, string message, string name)
         {
             if (!channelInitialized)
             {
@@ -51,25 +52,27 @@ namespace LocalNotifications.Droid
             
             else
             {
-                Show(title, message);
+                Show(title, message, name);
             }
         }
 
-        public void ReceiveNotification(string title, string message)
+        public void ReceiveNotification(string title, string message, string name)
         {
             var args = new NotificationEventArgs()
             {
                 Title = title,
                 Message = message,
+                Name = name
             };
             NotificationReceived?.Invoke(null, args);
         }
 
-        public void Show(string title, string message)
+        public void Show(string title, string message, string name)
         {
             Intent intent = new Intent(AndroidApp.Context, typeof(MainActivity));
             intent.PutExtra(TitleKey, title);
             intent.PutExtra(MessageKey, message);
+            intent.PutExtra(Name, name);
 
             PendingIntent pendingIntent = PendingIntent.GetActivity(AndroidApp.Context, pendingIntentId++, intent, PendingIntentFlags.UpdateCurrent);
 
@@ -77,7 +80,9 @@ namespace LocalNotifications.Droid
                 .SetContentIntent(pendingIntent)
                 .SetContentTitle(title)
                 .SetContentText(message)
-                .SetDefaults((int)NotificationDefaults.Sound | (int)NotificationDefaults.Vibrate);
+                .SetDefaults((int)NotificationDefaults.Sound | (int)NotificationDefaults.Vibrate)
+                .SetSmallIcon(Resource.Mipmap.icon)
+                .SetAutoCancel(true);
 
             Notification notification = builder.Build();
             manager.Notify(messageId++, notification);
@@ -85,7 +90,7 @@ namespace LocalNotifications.Droid
 
         void CreateNotificationChannel()
         {
-            manager = (NotificationManager)AndroidApp.Context.GetSystemService(AndroidApp.NotificationService);
+             manager = (NotificationManager)AndroidApp.Context.GetSystemService(AndroidApp.NotificationService);
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
             {
