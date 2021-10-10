@@ -12,7 +12,6 @@
         <Label Text="Please Report The License Plate Immediately" FontSize="16" Padding="30,0,30,0" IsVisible="false" x:Name="TakeAction" HorizontalOptions="Center"/>
         <Label Text="Help save lives. Respond to Amber Alerts!" FontSize="16" Padding="30,0,30,0" x:Name="AppDescription" HorizontalOptions="Center"/>
         <Label HorizontalOptions="Center" VerticalOptions="Center" x:Name="LicensePlate"  FontSize="25" Margin="100, 10"/>
-       
     </StackLayout>
     
 

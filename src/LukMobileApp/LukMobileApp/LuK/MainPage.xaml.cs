@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -20,6 +22,8 @@ namespace LuK
 
             BindingContext = this;
             //LicensePlate.Text = "WB 38 Q 9613";
+            var database = App.LocalDatabase;
+            List<AmberAlert> amberAlerts = database.GetAmberAlertAsync().Result;
 
             notificationManager = DependencyService.Get<INotificationManager>();
             cameraManager = DependencyService.Get<ICameraManager>();
@@ -27,9 +31,9 @@ namespace LuK
             notificationManager.NotificationReceived += (sender, eventArgs) =>
             {
                 var evtData = (NotificationEventArgs)eventArgs;
-                ActOnNotification(evtData.Title, evtData.Message, evtData.Name);
+                ActOnNotification(evtData.Title, evtData.Message, evtData.Name, amberAlerts);
             };
-            
+           
         }
         void OnSendClick(object sender, EventArgs e)
         {
@@ -40,12 +44,12 @@ namespace LuK
             notificationManager.SendNotification(title, message, name);
             
         }
-        void ActOnNotification(string title, string message, string name)
+        void ActOnNotification(string title, string message, string name, List<AmberAlert> amberAlerts)
         {
             AppDescription.IsVisible = false;
             if(name.Equals("AmberAlertNotification", StringComparison.OrdinalIgnoreCase))
             {
-                ActOnPushNotificationForAmberAlert(title, message, name);
+                ActOnPushNotificationForAmberAlert(title, message, name, amberAlerts);
 
             }
             else if(name.Equals("MatchForLicensePlateNotification", StringComparison.OrdinalIgnoreCase))
@@ -55,7 +59,7 @@ namespace LuK
            
         }
 
-        async Task ActOnPushNotificationForAmberAlert(string title, string message, string name)
+        async Task ActOnPushNotificationForAmberAlert(string title, string message, string name, List<AmberAlert> amberAlerts)
         {
             Device.BeginInvokeOnMainThread(() =>
             {
@@ -67,38 +71,38 @@ namespace LuK
                 WelcomeText.IsVisible = false;
                 TakeAction.IsVisible = false;
             });
-          //  string notificationTitle = $"Scan For License Plate Number :{message} ";
-         //   string notificationMessage = message;
-           // string notificationName = "ScanForLicensePlateNotification";
-           // notificationManager.SendNotification(notificationTitle, notificationMessage, notificationName);
+            //  string notificationTitle = $"Scan For License Plate Number :{message} ";
+            //   string notificationMessage = message;
+            // string notificationName = "ScanForLicensePlateNotification";
+            // notificationManager.SendNotification(notificationTitle, notificationMessage, notificationName);
             //await DisplayAlert(notificationTitle, notificationMessage, "dismiss");
-            ScanLicensePlates(message);
+            ScanLicensePlates(amberAlerts);
         }
 
-        async Task ScanLicensePlates(string message)
+        async Task ScanLicensePlates(List<AmberAlert> amberAlerts)
         {
-            var isMatchFound = await FindMatch(message);
-            if (isMatchFound)
-            {
-                Device.BeginInvokeOnMainThread(() =>
+            // get the licence plate number as well if match is found, currently displaying default number. 
+                var isMatchFound = await FindMatch(amberAlerts);
+                if (isMatchFound)
                 {
-                    // var text = $"Notification Received:\nTitle: {title}\nMessage: {message}"
-                    Message.Text = "Match Found!!";
-                    LicensePlate.Text = message;
-                    LicensePlate.IsVisible = true;
-                    Message.IsVisible = true;
-                    WelcomeText.IsVisible = false;
-                    TakeAction.IsVisible = true;
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        // var text = $"Notification Received:\nTitle: {title}\nMessage: {message}"
+                        Message.Text = "Match Found!!";
+                        LicensePlate.Text = amberAlerts.First().LicensePlateNo;
+                        LicensePlate.IsVisible = true;
+                        Message.IsVisible = true;
+                        WelcomeText.IsVisible = false;
+                        TakeAction.IsVisible = true;
 
-                });
-                notificationManager.SendNotification("Match Found License Plate Number!!", message, "MatchForLicensePlateNotification");
-            }
+                    });
+                    // Send telemetry to Dashboard
+                    notificationManager.SendNotification("Match Found License Plate Number!!", amberAlerts.First().LicensePlateNo, "MatchForLicensePlateNotification");
+                }
         }
         async Task ActOnPushNotificationForMatchFound(string title, string message, string name)
         {
            
-           
-            
            
                 Device.BeginInvokeOnMainThread(() =>
                 {
@@ -114,16 +118,17 @@ namespace LuK
                 
 
         }
+
         void OpenCamera()
         {
             cameraManager.OpenCamera();
         }
 
-        async Task<bool> FindMatch(string licensePlateNumber)
+        async Task<bool> FindMatch(List<AmberAlert> amberAlerts)
         {
-            return await mLModel.FindMatch(licensePlateNumber);
+            return await mLModel.FindMatch(amberAlerts);
         }
-
-
+        
+       
     }
 }
