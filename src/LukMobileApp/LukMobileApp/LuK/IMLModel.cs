@@ -7,6 +7,6 @@ namespace LuK
 {
     public interface IMLModel
     {
-        Task<bool> FindMatch(string number);
+        Task<bool> FindMatch(List<AmberAlert> amberAlerts);
     }
 }
