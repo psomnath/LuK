@@ -12,7 +12,6 @@ namespace LuK
     public partial class App : Application
     {
         private static LocalDatabase _localDatabase;
-        //private static List<AmberAlert> amberAlerts;
 
         public static LocalDatabase LocalDatabase
         {
