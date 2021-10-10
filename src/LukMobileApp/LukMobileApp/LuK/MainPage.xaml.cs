@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Plugin.Media;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,7 +15,6 @@ namespace LuK
     {
         INotificationManager notificationManager;
         int notificationNumber = 0;
-        ICameraManager cameraManager;
         IMLModel mLModel;
         public MainPage()
         {
@@ -20,9 +22,9 @@ namespace LuK
 
             BindingContext = this;
             //LicensePlate.Text = "WB 38 Q 9613";
+            CrossMedia.Current.Initialize();
 
             notificationManager = DependencyService.Get<INotificationManager>();
-            cameraManager = DependencyService.Get<ICameraManager>();
             mLModel = new MlModelClass();
             notificationManager.NotificationReceived += (sender, eventArgs) =>
             {
@@ -55,7 +57,7 @@ namespace LuK
            
         }
 
-        async Task ActOnPushNotificationForAmberAlert(string title, string message, string name)
+        async Task ActOnPushNotificationForAmberAlert(string title, string message, string name = null)
         {
             Device.BeginInvokeOnMainThread(() =>
             {
@@ -77,6 +79,8 @@ namespace LuK
 
         async Task ScanLicensePlates(string message)
         {
+            await OpenCamera();
+           
             var isMatchFound = await FindMatch(message);
             if (isMatchFound)
             {
@@ -114,9 +118,38 @@ namespace LuK
                 
 
         }
-        void OpenCamera()
+        async Task OpenCamera()
         {
-            cameraManager.OpenCamera();
+            
+
+            //await CrossMedia.Current.Initialize();
+            if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakeVideoSupported)
+            {
+                await DisplayAlert("No Camera", ":( No camera avaialble.", "OK");
+                return;
+            }
+            try 
+            {
+                
+                await CrossMedia.Current.TakeVideoAsync(new Plugin.Media.Abstractions.StoreVideoOptions
+                {
+                    SaveToAlbum = false,
+                    Directory = "VideoFolder",
+                     
+                });
+                /*Device.BeginInvokeOnMainThread(() => 
+                await CrossMedia.Current.TakeVideoAsync(new Plugin.Media.Abstractions.StoreVideoOptions
+                {
+                    SaveToAlbum = false
+                }));*/
+       
+            }
+            catch(Exception e)
+            {
+
+                await DisplayAlert("Camera Error", e.Message, "Dismiss");
+            }
+
         }
 
         async Task<bool> FindMatch(string licensePlateNumber)

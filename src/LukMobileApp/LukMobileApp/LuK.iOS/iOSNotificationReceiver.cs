@@ -21,8 +21,9 @@ namespace LuK.iOS
         {
             string title = notification.Request.Content.Title;
             string message = notification.Request.Content.Body;
+            string name = notification.Request.Content.ValueForKey(new NSString("Name")).ToString();
 
-            DependencyService.Get<INotificationManager>().ReceiveNotification(title, message);
+            DependencyService.Get<INotificationManager>().ReceiveNotification(title, message, name);
         }
     }
 }
