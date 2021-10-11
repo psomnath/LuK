@@ -14,7 +14,6 @@ class PlateDetectorViewController: UIViewController {
     private let ambertAlertNetworkFetcher = AmberAlertNextworkFetcher()
     private var imageBounds: CGRect?
     private var amberAlerts = [AmberAlertModel]()
-    
     private let videoPreview: UIView = {
        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -63,7 +62,10 @@ class PlateDetectorViewController: UIViewController {
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch))
         self.videoPreview.addGestureRecognizer(pinchGesture)
     }
-    
+    @IBAction func startMonitoring(sender: UIButton){
+        // populate local db with amber alert
+        self.cameraController?.startCamera()
+    }
     @objc private func handlePinch(recognizer: UIPinchGestureRecognizer) {
         self.cameraController?.viewPinched(recognizer: recognizer)
     }
