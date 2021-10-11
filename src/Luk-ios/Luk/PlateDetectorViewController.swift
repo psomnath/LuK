@@ -7,7 +7,7 @@ import Vision
 import AVKit
 import CoreMedia
 
-class PlateDetectorViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
+class PlateDetectorViewController: UIViewController {
     
     private let plateDetector: PlateDetector = PlateDetector()
     private let cameraController: CameraController? = CameraController(fps: 30, sessionPreset: .vga640x480)
