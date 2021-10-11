@@ -11,7 +11,9 @@ class PlateDetectorViewController: UIViewController {
     
     private let plateDetector: PlateDetector = PlateDetector()
     private let cameraController: CameraController? = CameraController(fps: 30, sessionPreset: .vga640x480)
+    private let ambertAlertNetworkFetcher = AmberAlertNextworkFetcher()
     private var imageBounds: CGRect?
+    private var amberAlerts = [AmberAlertModel]()
     
     private let videoPreview: UIView = {
        let view = UIView()
@@ -69,6 +71,18 @@ class PlateDetectorViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.cameraController?.startCamera()
+        
+        self.ambertAlertNetworkFetcher.fetchAmberAlerts { [weak self] result in
+            switch result {
+            case .failure(let error):
+                print(error.localizedDescription)
+                
+            case .success(let amberAlerts):
+                DispatchQueue.main.async {
+                    self?.amberAlerts = amberAlerts
+                }
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

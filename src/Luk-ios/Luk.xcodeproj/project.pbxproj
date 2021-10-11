@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A20F8A6C271485890049587F /* AmberAlertNetworkFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20F8A6B271485890049587F /* AmberAlertNetworkFetcher.swift */; };
+		A20F8A6E271485AF0049587F /* AmberAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20F8A6D271485AF0049587F /* AmberAlertModel.swift */; };
 		A252D7282713C74200F23EF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A252D7272713C74200F23EF1 /* AppDelegate.swift */; };
 		A252D72A2713C74200F23EF1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A252D7292713C74200F23EF1 /* SceneDelegate.swift */; };
 		A252D72C2713C74200F23EF1 /* PlateDetectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A252D72B2713C74200F23EF1 /* PlateDetectorViewController.swift */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A20F8A6B271485890049587F /* AmberAlertNetworkFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmberAlertNetworkFetcher.swift; sourceTree = "<group>"; };
+		A20F8A6D271485AF0049587F /* AmberAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmberAlertModel.swift; sourceTree = "<group>"; };
 		A252D7242713C74200F23EF1 /* Luk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Luk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A252D7272713C74200F23EF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A252D7292713C74200F23EF1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -78,6 +82,8 @@
 				A252D73D2713C8C500F23EF1 /* PlateDetector.swift */,
 				A252D7452713D08B00F23EF1 /* PlateModel.swift */,
 				A252D7432713CF6000F23EF1 /* UIImage+Extension.swift */,
+				A20F8A6B271485890049587F /* AmberAlertNetworkFetcher.swift */,
+				A20F8A6D271485AF0049587F /* AmberAlertModel.swift */,
 			);
 			path = Luk;
 			sourceTree = "<group>";
@@ -156,8 +162,10 @@
 				A252D7282713C74200F23EF1 /* AppDelegate.swift in Sources */,
 				A252D73E2713C8C500F23EF1 /* PlateDetector.swift in Sources */,
 				A252D7442713CF6000F23EF1 /* UIImage+Extension.swift in Sources */,
+				A20F8A6E271485AF0049587F /* AmberAlertModel.swift in Sources */,
 				A252D73C2713C78400F23EF1 /* CameraController.swift in Sources */,
 				A252D7422713C9B100F23EF1 /* model_plate_turi.mlmodel in Sources */,
+				A20F8A6C271485890049587F /* AmberAlertNetworkFetcher.swift in Sources */,
 				A252D7462713D08B00F23EF1 /* PlateModel.swift in Sources */,
 				A252D72A2713C74200F23EF1 /* SceneDelegate.swift in Sources */,
 			);
