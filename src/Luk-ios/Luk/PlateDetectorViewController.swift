@@ -6,14 +6,16 @@ import UIKit
 import Vision
 import AVKit
 import CoreMedia
+import CoreLocation
 
 class PlateDetectorViewController: UIViewController {
     
-    private let plateDetector: PlateDetector = PlateDetector()
-    private let cameraController: CameraController? = CameraController(fps: 30, sessionPreset: .vga640x480)
-    private let ambertAlertNetworkFetcher = AmberAlertNextworkFetcher()
+    private let plateDetector: PlateDetector
+    private let cameraController: CameraController?
+    private let ambertAlertNetworkFetcher: AmberAlertNextworkFetcher
     private var imageBounds: CGRect?
     private var amberAlerts = [AmberAlertModel]()
+    private var locationManager: CLLocationManager
     private let videoPreview: UIView = {
        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -32,12 +34,28 @@ class PlateDetectorViewController: UIViewController {
         return label
     }()
     
+    init() {
+        self.locationManager = CLLocationManager()
+        self.plateDetector = PlateDetector()
+        self.ambertAlertNetworkFetcher = AmberAlertNextworkFetcher()
+        self.cameraController = CameraController(fps: 30, sessionPreset: .vga640x480)
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         UIApplication.shared.isIdleTimerDisabled = true
         view.backgroundColor = .black
 
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        
         plateDetector.delegate = self
         
         view.addSubview(plateLabel)
@@ -69,10 +87,11 @@ class PlateDetectorViewController: UIViewController {
     @objc private func handlePinch(recognizer: UIPinchGestureRecognizer) {
         self.cameraController?.viewPinched(recognizer: recognizer)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.cameraController?.startCamera()
+        locationManager.startUpdatingLocation()
         
         self.ambertAlertNetworkFetcher.fetchAmberAlerts { [weak self] result in
             switch result {
@@ -86,10 +105,11 @@ class PlateDetectorViewController: UIViewController {
             }
         }
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.cameraController?.stopCamera()
+        locationManager.stopUpdatingLocation()
     }
     
     override func viewDidLayoutSubviews() {
@@ -113,6 +133,20 @@ class PlateDetectorViewController: UIViewController {
         }
 
         self.videoPreview.setNeedsDisplay()
+    }
+}
+
+extension PlateDetectorViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            let latitude = location.coordinate.latitude
+            let longitude = location.coordinate.longitude
+            print ("\(latitude) \(longitude)")
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print ("Error getting the user s location \(error.localizedDescription)")
     }
 }
 
