@@ -16,6 +16,7 @@ class PlateDetectorViewController: UIViewController {
     private var imageBounds: CGRect?
     private var amberAlerts = [AmberAlertModel]()
     private var locationManager: CLLocationManager
+    
     private let videoPreview: UIView = {
        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
