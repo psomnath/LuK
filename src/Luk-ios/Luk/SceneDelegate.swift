@@ -13,7 +13,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = PlateDetectorViewController()
+        
+        let navigationViewController = UINavigationController(rootViewController: AmberAlertsTableViewController())
+        window?.rootViewController = navigationViewController
         window?.makeKeyAndVisible()
     }
 }
