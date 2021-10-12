@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Luk.Api", "Luk.Api\Luk.Api.csproj", "{DD2B9A45-0836-4A54-88D2-600BECBA2AB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Luk.Api", "Luk.Api\Luk.Api.csproj", "{DD2B9A45-0836-4A54-88D2-600BECBA2AB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Luk.Utilities", "Luk.Utilities\Luk.Utilities.csproj", "{9E3C348A-ED93-41B7-A4B9-432A47FDF06C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Luk.FunctionApp", "Luk.FunctionApp\Luk.FunctionApp.csproj", "{860AA7D8-842A-4114-9E9E-5C9AC61939AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{DD2B9A45-0836-4A54-88D2-600BECBA2AB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD2B9A45-0836-4A54-88D2-600BECBA2AB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD2B9A45-0836-4A54-88D2-600BECBA2AB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E3C348A-ED93-41B7-A4B9-432A47FDF06C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E3C348A-ED93-41B7-A4B9-432A47FDF06C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E3C348A-ED93-41B7-A4B9-432A47FDF06C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E3C348A-ED93-41B7-A4B9-432A47FDF06C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{860AA7D8-842A-4114-9E9E-5C9AC61939AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{860AA7D8-842A-4114-9E9E-5C9AC61939AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{860AA7D8-842A-4114-9E9E-5C9AC61939AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{860AA7D8-842A-4114-9E9E-5C9AC61939AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

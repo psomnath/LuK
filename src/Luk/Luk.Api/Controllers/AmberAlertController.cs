@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Luk.Utilities;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -19,20 +20,25 @@ namespace Luk.Api.Controllers
         }
 
         [HttpGet]
-
         public IEnumerable<AlertInfo> Get()
         {
-            var sampleAlerts = new List<AlertInfo>()
-            { 
-                new AlertInfo()
-                {
-                    AlertId = Guid.NewGuid(),
-                    AlertText = "sample alert",
-                    CreationTimeStamp = DateTime.Now,
-                    LicensePlateNo = "zzzzzzzz"
-                }
-            };
-            return sampleAlerts;
+            AmberAlertConsumer alertConsumer = new AmberAlertConsumer();
+
+            var newAlerts = alertConsumer.GetActiveAlertsWithDetails();
+
+            if(newAlerts.Count==0)
+            {
+                newAlerts = SampleDataProducer.ProduceSampleAlerts();
+            }
+
+            return newAlerts;
+        }
+        [HttpPost]
+        [Route("Report")]
+        public int ReportFindings([FromBody] AlertMatch matchedAlert)
+        {
+            
+            return 2;
         }
     }
 }

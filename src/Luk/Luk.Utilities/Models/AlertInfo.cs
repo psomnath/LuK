@@ -1,15 +1,20 @@
+﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Luk.Api
+namespace Luk.Utilities
 {
     public class AlertInfo
     {
-        public Guid AlertId { get; set; }
+        public int AlertId { get; set; }
 
         public DateTime CreationTimeStamp { get; set; }
-        
+
         public string LicensePlateNo { get; set; }
 
         public string AlertText { get; set; }
+
+        public string LicensePlateState { get; internal set; }
     }
 }
