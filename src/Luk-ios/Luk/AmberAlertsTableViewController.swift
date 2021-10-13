@@ -122,7 +122,23 @@ extension AmberAlertsTableViewController: AmberAlertCellDelegate {
         guard let model = model else {
             return
         }
+
+        let alert = UIAlertController(title: "", message: "Do you want to report license plate \(model.licensePlateNo)?", preferredStyle: .actionSheet)
         
+        alert.addAction(UIAlertAction(title: "Report it", style: .default, handler: { [weak self] _ in
+            self?.report(model: model)
+        }))
+
+        alert.addAction(UIAlertAction(title: "Call 911", style: .destructive, handler: { [weak self] _ in
+            self?.amberAlertNetworkMatchReport.report(model: model) { _ in }
+            self?.call911()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    private func report(model: AmberAlertModel) {
         self.amberAlertNetworkMatchReport.report(model: model) { [weak self] error in
             DispatchQueue.main.async {
                 if let error = error {
@@ -140,5 +156,14 @@ extension AmberAlertsTableViewController: AmberAlertCellDelegate {
                 self?.present(alert, animated: true)
             }
         }
+    }
+    
+    private func call911() {
+        guard let url = URL(string: "tel://\("")"),
+            UIApplication.shared.canOpenURL(url) else {
+            return
+        }
+
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }

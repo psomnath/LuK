@@ -18,8 +18,8 @@ class AmberAlertCell: UITableViewCell {
     private lazy var button: UIButton = {
         let button = UIButton(frame: .zero)
         button.titleLabel?.font = .preferredFont(forTextStyle: .footnote)
-        button.setTitleColor(.blue, for: .normal)
-        button.setTitle("Report it!", for: .normal)
+        button.setTitle("Report it", for: .normal)
+        button.setTitleColor(.label, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.sizeToFit()
         button.layer.cornerRadius = 10
