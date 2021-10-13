@@ -40,7 +40,7 @@ class AmberAlertsTableViewController: UITableViewController {
         let button = UIButton(frame: .zero)
         button.titleLabel?.font = .preferredFont(forTextStyle: .title2)
         button.setTitle("Start monitoring", for: .normal)
-        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        button.addTarget(self, action: #selector(startMonitoringTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 1
@@ -53,11 +53,18 @@ class AmberAlertsTableViewController: UITableViewController {
         button.leadingAnchor.constraint(equalTo: self.tableView.layoutMarginsGuide.leadingAnchor).isActive = true
         button.topAnchor.constraint(equalTo: self.tableView.layoutMarginsGuide.bottomAnchor, constant: -button.bounds.size.height).isActive = true
         
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(settingsTapped))
+        
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
     }
     
-    @objc func buttonAction(_ sender: UIButton!) {
+    @objc private func settingsTapped() {
+        let settingsVC = SettingsTableViewController()
+        self.navigationController?.pushViewController(settingsVC, animated: true)
+    }
+    
+    @objc private func startMonitoringTapped(_ sender: UIButton!) {
         let plateDetectorViewController = PlateDetectorViewController()
         self.navigationController?.present(plateDetectorViewController, animated: true, completion: nil)
     }
@@ -188,7 +195,7 @@ extension AmberAlertsTableViewController: AmberAlertCellDelegate {
     }
     
     private func call911() {
-        guard let url = URL(string: "tel://\("")"),
+        guard let url = URL(string: "tel://\(UserDefaults.standard.phoneNumber)"),
             UIApplication.shared.canOpenURL(url) else {
             return
         }

@@ -10,6 +10,7 @@ import Foundation
 extension UserDefaults {
     private struct Constants {
         static let deviceIDKey = "Luk_DeviceID"
+        static let phoneNumberKey = "Luk_PhoneNumber"
     }
     
     var deviceID: String {
@@ -23,5 +24,13 @@ extension UserDefaults {
         defaults.set(newDeviceID, forKey: Constants.deviceIDKey)
         
         return newDeviceID
+    }
+    
+    var phoneNumber: String {
+        return UserDefaults.standard.string(forKey: Constants.phoneNumberKey) ?? ""
+    }
+    
+    func updatePhoneNumber(phoneNumber: String) {
+        UserDefaults.standard.set(phoneNumber, forKey: Constants.phoneNumberKey)
     }
 }
