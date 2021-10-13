@@ -18,6 +18,8 @@ class PlateDetectorViewController: UIViewController {
     private var amberAlerts = [AmberAlertModel]()
     private var locationManager: CLLocationManager
     private var amberAlertNetworkMatchReport: AmberAlertNetworkMatchReport
+    private var latitude: CLLocationDegrees?
+    private var longitude: CLLocationDegrees?
     
     private let videoPreview: UIView = {
        let view = UIView()
@@ -142,9 +144,9 @@ class PlateDetectorViewController: UIViewController {
 extension PlateDetectorViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-            let latitude = location.coordinate.latitude
-            let longitude = location.coordinate.longitude
-            print ("\(latitude) \(longitude)")
+            self.latitude = location.coordinate.latitude
+            self.longitude = location.coordinate.longitude
+            print ("\(self.latitude ?? 0) \(self.longitude ?? 0)")
         }
     }
 
@@ -167,32 +169,40 @@ extension PlateDetectorViewController: PlateDetectorDelegate {
         }
         
         self.plateLabel.text = plates.first?.licensePlate
-        let plate = self.plateLabel.text
         self.update(plateBounds: plates.compactMap({ $0.box }))
+
+        guard let plate = self.plateLabel.text else {
+            return
+        }
         
-        let result = fuzzyMatch(plate: plate!)
-        if(result != nil){
-            self.amberAlertNetworkMatchReport.report(model: result!) { [weak self] error in
-                DispatchQueue.main.async {
-                    if let error = error {
-                        print(error.localizedDescription)
-                        
-                        let alert = UIAlertController(title: "", message: "Failed to report \(result?.licensePlateNo ?? "").", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                        self?.present(alert, animated: true)
-                        
-                        return
-                    }
+        let model = fuzzyMatch(plate: plate)
+        
+        guard let model = model else {
+            return
+        }
+
+        self.amberAlertNetworkMatchReport.report(model: model, latitude: self.latitude, longitude: self.longitude) { [weak self] error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    print(error.localizedDescription)
                     
-                    let alert = UIAlertController(title: "", message: "License plate \(result?.licensePlateNo ?? "") has been reported.", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "", message: "Failed to report \(model.licensePlateNo).", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                     self?.present(alert, animated: true)
+                    
+                    return
                 }
+                
+                let alert = UIAlertController(title: "", message: "License plate \(model.licensePlateNo) has been reported.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self?.present(alert, animated: true)
             }
-            print(result as Any)
         }
+
+        print(model.licensePlateNo)
     }
-    func fuzzyMatch(plate: String) -> AmberAlertModel?{
+
+    func fuzzyMatch(plate: String) -> AmberAlertModel? {
         let fuse = Fuse()
         for alert in self.amberAlerts{
             

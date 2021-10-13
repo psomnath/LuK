@@ -4,15 +4,20 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
 class AmberAlertsTableViewController: UITableViewController {
     private let ambertAlertNetworkFetcher: AmberAlertNextworkFetcher
     private let amberAlertNetworkMatchReport: AmberAlertNetworkMatchReport
     private var amberAlerts = [AmberAlertModel]()
+    private var locationManager: CLLocationManager
+    private var latitude: CLLocationDegrees?
+    private var longitude: CLLocationDegrees?
     
     init() {
         self.ambertAlertNetworkFetcher = AmberAlertNextworkFetcher()
         self.amberAlertNetworkMatchReport = AmberAlertNetworkMatchReport()
+        self.locationManager = CLLocationManager()
         
         super.init(style: .grouped)
         
@@ -47,6 +52,9 @@ class AmberAlertsTableViewController: UITableViewController {
         button.trailingAnchor.constraint(equalTo: self.tableView.layoutMarginsGuide.trailingAnchor).isActive = true
         button.leadingAnchor.constraint(equalTo: self.tableView.layoutMarginsGuide.leadingAnchor).isActive = true
         button.topAnchor.constraint(equalTo: self.tableView.layoutMarginsGuide.bottomAnchor, constant: -button.bounds.size.height).isActive = true
+        
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
     }
     
     @objc func buttonAction(_ sender: UIButton!) {
@@ -56,6 +64,8 @@ class AmberAlertsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        locationManager.startUpdatingLocation()
         
         self.ambertAlertNetworkFetcher.fetchAmberAlerts { [weak self] result in
             switch result {
@@ -69,6 +79,11 @@ class AmberAlertsTableViewController: UITableViewController {
                 }
             }
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        locationManager.stopUpdatingLocation()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -117,6 +132,20 @@ class AmberAlertsTableViewController: UITableViewController {
     }
 }
 
+extension AmberAlertsTableViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            self.latitude = location.coordinate.latitude
+            self.longitude = location.coordinate.longitude
+            print ("\(self.latitude ?? 0) \(self.longitude ?? 0)")
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print ("Error getting the user s location \(error.localizedDescription)")
+    }
+}
+
 extension AmberAlertsTableViewController: AmberAlertCellDelegate {
     func didTapReportIt(model: AmberAlertModel?) {
         guard let model = model else {
@@ -130,7 +159,7 @@ extension AmberAlertsTableViewController: AmberAlertCellDelegate {
         }))
 
         alert.addAction(UIAlertAction(title: "Call 911", style: .destructive, handler: { [weak self] _ in
-            self?.amberAlertNetworkMatchReport.report(model: model) { _ in }
+            self?.amberAlertNetworkMatchReport.report(model: model, latitude: self?.latitude, longitude: self?.longitude) { _ in }
             self?.call911()
         }))
         
@@ -139,7 +168,7 @@ extension AmberAlertsTableViewController: AmberAlertCellDelegate {
     }
     
     private func report(model: AmberAlertModel) {
-        self.amberAlertNetworkMatchReport.report(model: model) { [weak self] error in
+        self.amberAlertNetworkMatchReport.report(model: model, latitude: self.latitude, longitude: self.longitude) { [weak self] error in
             DispatchQueue.main.async {
                 if let error = error {
                     print(error.localizedDescription)

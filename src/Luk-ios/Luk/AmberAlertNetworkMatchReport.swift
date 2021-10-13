@@ -3,14 +3,15 @@
 //
 
 import Foundation
+import CoreLocation
 
 class AmberAlertNetworkMatchReport {
-    func report(model: AmberAlertModel, completion: @escaping (Error?) -> Void) {
+    func report(model: AmberAlertModel, latitude: CLLocationDegrees?, longitude: CLLocationDegrees?, completion: @escaping (Error?) -> Void) {
         let parameters:  [String : Any] = ["alertId": model.alertId,
                                            "capturedTimeStamp": "0001-01-01T00:00:00",
                                            "licensePlateNo": model.licensePlateNo,
                                            "deviceId": UserDefaults.standard.deviceID,
-                                           "geoLocation": "28.3832727,-81.2444224"]
+                                           "geoLocation": self.geoLocation(latitude: latitude, longitude: longitude)]
         let url = URL(string: "https://lukapi.azurewebsites.net/amberalert/Report")!
 
         var request = URLRequest(url: url)
@@ -48,5 +49,13 @@ class AmberAlertNetworkMatchReport {
             completion(nil)
         })
         task.resume()
+    }
+    
+    private func geoLocation(latitude: CLLocationDegrees?, longitude: CLLocationDegrees?) -> String {
+        guard let latitude = latitude, let longitude = longitude else {
+            return ""
+        }
+        
+        return "\(latitude),\(longitude)"
     }
 }
