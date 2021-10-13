@@ -7,10 +7,12 @@ import UIKit
 
 class AmberAlertsTableViewController: UITableViewController {
     private let ambertAlertNetworkFetcher: AmberAlertNextworkFetcher
+    private let amberAlertNetworkMatchReport: AmberAlertNetworkMatchReport
     private var amberAlerts = [AmberAlertModel]()
     
     init() {
         self.ambertAlertNetworkFetcher = AmberAlertNextworkFetcher()
+        self.amberAlertNetworkMatchReport = AmberAlertNetworkMatchReport()
         
         super.init(style: .grouped)
         
@@ -18,6 +20,7 @@ class AmberAlertsTableViewController: UITableViewController {
         self.tableView.dataSource = self
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.allowsSelection = false
+        self.tableView.register(AmberAlertCell.self, forCellReuseIdentifier: AmberAlertCell.reuseIdentifier)
     }
     
     required init?(coder: NSCoder) {
@@ -92,11 +95,9 @@ class AmberAlertsTableViewController: UITableViewController {
         }
      
         let amberAlert = self.amberAlerts[indexPath.row]
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        cell.textLabel?.text = "License Plate: \(amberAlert.licensePlateNo)"
-        cell.detailTextLabel?.text = amberAlert.alertText
-        cell.detailTextLabel?.font = .preferredFont(forTextStyle: .body)
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: AmberAlertCell.reuseIdentifier, for: indexPath) as! AmberAlertCell
+        cell.update(model: amberAlert)
+        cell.delegate = self
         return cell
     }
 
@@ -109,5 +110,35 @@ class AmberAlertsTableViewController: UITableViewController {
         maskLayer.backgroundColor = UIColor.black.cgColor
         maskLayer.frame = CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: cell.bounds.width, height: cell.bounds.height).insetBy(dx: 0, dy: verticalPadding/2)
         cell.layer.mask = maskLayer
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
+    }
+}
+
+extension AmberAlertsTableViewController: AmberAlertCellDelegate {
+    func didTapReportIt(model: AmberAlertModel?) {
+        guard let model = model else {
+            return
+        }
+        
+        self.amberAlertNetworkMatchReport.report(model: model) { [weak self] error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    print(error.localizedDescription)
+                    
+                    let alert = UIAlertController(title: "", message: "Failed to report \(model.licensePlateNo).", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self?.present(alert, animated: true)
+                    
+                    return
+                }
+                
+                let alert = UIAlertController(title: "", message: "License plate \(model.licensePlateNo) has been reported.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self?.present(alert, animated: true)
+            }
+        }
     }
 }
