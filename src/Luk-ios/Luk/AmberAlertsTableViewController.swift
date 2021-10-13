@@ -7,10 +7,12 @@ import UIKit
 
 class AmberAlertsTableViewController: UITableViewController {
     private let ambertAlertNetworkFetcher: AmberAlertNextworkFetcher
+    private let amberAlertNetworkMatchReport: AmberAlertNetworkMatchReport
     private var amberAlerts = [AmberAlertModel]()
     
     init() {
         self.ambertAlertNetworkFetcher = AmberAlertNextworkFetcher()
+        self.amberAlertNetworkMatchReport = AmberAlertNetworkMatchReport()
         
         super.init(style: .grouped)
         
@@ -121,6 +123,22 @@ extension AmberAlertsTableViewController: AmberAlertCellDelegate {
             return
         }
         
-        print("The user tapped on the license plate number \(model.licensePlateNo)")
+        self.amberAlertNetworkMatchReport.report(model: model) { [weak self] error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    print(error.localizedDescription)
+                    
+                    let alert = UIAlertController(title: "", message: "Failed to report \(model.licensePlateNo).", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self?.present(alert, animated: true)
+                    
+                    return
+                }
+                
+                let alert = UIAlertController(title: "", message: "License plate \(model.licensePlateNo) has been reported.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self?.present(alert, animated: true)
+            }
+        }
     }
 }

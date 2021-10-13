@@ -23,6 +23,7 @@
 		A252D7462713D08B00F23EF1 /* PlateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A252D7452713D08B00F23EF1 /* PlateModel.swift */; };
 		A29F8DF027167363001C8D59 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F8DEF27167363001C8D59 /* UserDefaults+Extension.swift */; };
 		A29F8DF2271685CB001C8D59 /* AmberAlertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F8DF1271685CB001C8D59 /* AmberAlertCell.swift */; };
+		A29F8DF427168ADC001C8D59 /* AmberAlertNetworkMatchReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F8DF327168ADC001C8D59 /* AmberAlertNetworkMatchReport.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		A252D7452713D08B00F23EF1 /* PlateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlateModel.swift; sourceTree = "<group>"; };
 		A29F8DEF27167363001C8D59 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		A29F8DF1271685CB001C8D59 /* AmberAlertCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmberAlertCell.swift; sourceTree = "<group>"; };
+		A29F8DF327168ADC001C8D59 /* AmberAlertNetworkMatchReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmberAlertNetworkMatchReport.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,10 +91,11 @@
 				A252D7452713D08B00F23EF1 /* PlateModel.swift */,
 				A252D7432713CF6000F23EF1 /* UIImage+Extension.swift */,
 				A20F8A6B271485890049587F /* AmberAlertNetworkFetcher.swift */,
+				A29F8DF327168ADC001C8D59 /* AmberAlertNetworkMatchReport.swift */,
 				A20F8A6D271485AF0049587F /* AmberAlertModel.swift */,
 				A20F8A6F2714B4A30049587F /* AmberAlertsTableViewController.swift */,
-				A29F8DEF27167363001C8D59 /* UserDefaults+Extension.swift */,
 				A29F8DF1271685CB001C8D59 /* AmberAlertCell.swift */,
+				A29F8DEF27167363001C8D59 /* UserDefaults+Extension.swift */,
 			);
 			path = Luk;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A29F8DF427168ADC001C8D59 /* AmberAlertNetworkMatchReport.swift in Sources */,
 				A252D72C2713C74200F23EF1 /* PlateDetectorViewController.swift in Sources */,
 				A252D7282713C74200F23EF1 /* AppDelegate.swift in Sources */,
 				A252D73E2713C8C500F23EF1 /* PlateDetector.swift in Sources */,
