@@ -81,7 +81,7 @@ class AmberAlertCell: UITableViewCell {
         self.plateLabel.text = "License Plate: \(model.licensePlateNo)"
         self.plateLabel.sizeToFit()
         
-        self.alertLabel.text = "This is a really big text so lets see what is going to happen when it " // model.alertText
+        self.alertLabel.text = model.alertText
         self.alertLabel.sizeToFit()
         
         self.setNeedsLayout()

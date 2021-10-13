@@ -8,6 +8,7 @@ import UIKit
 class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     private enum RowTag: Int {
         case phoneNumber
+        case testLicensePlate
     }
     
     init() {
@@ -29,8 +30,12 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         self.title = "Settings"
     }
     
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Phone number"
+        return section == 1 ? "Phone number" : "Test license plate"
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -38,15 +43,28 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: TextTableViewCell.reusableIdentifier, for: indexPath) as? TextTableViewCell {
-            cell.selectionStyle = .none
-            cell.dataTextField.delegate = self
-            cell.dataTextField.text = UserDefaults.standard.phoneNumber
-            cell.dataTextField.tag = RowTag.phoneNumber.rawValue
-            cell.placeholder = "Number to be called."
-            cell.isUserInteractionEnabled = true
+        if indexPath.section == 0 {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: TextTableViewCell.reusableIdentifier, for: indexPath) as? TextTableViewCell {
+                cell.selectionStyle = .none
+                cell.dataTextField.delegate = self
+                cell.dataTextField.text = UserDefaults.standard.phoneNumber
+                cell.dataTextField.tag = RowTag.phoneNumber.rawValue
+                cell.placeholder = "Number to be called."
+                cell.isUserInteractionEnabled = true
 
-            return cell
+                return cell
+            }
+        } else {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: TextTableViewCell.reusableIdentifier, for: indexPath) as? TextTableViewCell {
+                cell.selectionStyle = .none
+                cell.dataTextField.delegate = self
+                cell.dataTextField.text = UserDefaults.standard.testLicensePlate
+                cell.dataTextField.tag = RowTag.testLicensePlate.rawValue
+                cell.placeholder = "Test License Plate"
+                cell.isUserInteractionEnabled = true
+
+                return cell
+            }
         }
         
         return UITableViewCell()
@@ -65,7 +83,11 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @objc func valueChanged(_ textField: UITextField) {
-        UserDefaults.standard.updatePhoneNumber(phoneNumber: textField.text ?? "")
+        if textField.tag == RowTag.phoneNumber.rawValue {
+            UserDefaults.standard.updatePhoneNumber(phoneNumber: textField.text ?? "")
+        } else if textField.tag == RowTag.testLicensePlate.rawValue {
+            UserDefaults.standard.updateTestLicensePlate(testLicensePlate: textField.text ?? "")
+        }
     }
 }
 

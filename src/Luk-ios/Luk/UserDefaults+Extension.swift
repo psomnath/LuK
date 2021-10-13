@@ -11,6 +11,7 @@ extension UserDefaults {
     private struct Constants {
         static let deviceIDKey = "Luk_DeviceID"
         static let phoneNumberKey = "Luk_PhoneNumber"
+        static let testLicensePlateKey = "Luk_TestLicensePlateKey"
     }
     
     var deviceID: String {
@@ -32,5 +33,13 @@ extension UserDefaults {
     
     func updatePhoneNumber(phoneNumber: String) {
         UserDefaults.standard.set(phoneNumber, forKey: Constants.phoneNumberKey)
+    }
+    
+    var testLicensePlate: String {
+        return UserDefaults.standard.string(forKey: Constants.testLicensePlateKey) ?? ""
+    }
+    
+    func updateTestLicensePlate(testLicensePlate: String) {
+        UserDefaults.standard.set(testLicensePlate, forKey: Constants.testLicensePlateKey)
     }
 }

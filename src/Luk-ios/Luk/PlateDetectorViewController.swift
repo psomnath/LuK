@@ -16,11 +16,11 @@ class PlateDetectorViewController: UIViewController {
     private let ambertAlertNetworkFetcher: AmberAlertNextworkFetcher
     private var imageBounds: CGRect?
     private var amberAlerts = [AmberAlertModel]()
-    private var reportedAmberAlerts = [AmberAlertModel]()
+    private var reportedAmberAlertIDs = Set<Int64>()
     private var locationManager: CLLocationManager
-    private var amberAlertNetworkMatchReport: AmberAlertNetworkMatchReport
     private var latitude: CLLocationDegrees?
     private var longitude: CLLocationDegrees?
+    private let operationQueue: LicensePlateMatchOperationQueue
     
     private let videoPreview: UIView = {
        let view = UIView()
@@ -45,7 +45,7 @@ class PlateDetectorViewController: UIViewController {
         self.plateDetector = PlateDetector()
         self.ambertAlertNetworkFetcher = AmberAlertNextworkFetcher()
         self.cameraController = CameraController(fps: 30, sessionPreset: .vga640x480)
-        self.amberAlertNetworkMatchReport = AmberAlertNetworkMatchReport()
+        self.operationQueue = LicensePlateMatchOperationQueue(amberAlertNetworkMatchReport: AmberAlertNetworkMatchReport())
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -166,57 +166,29 @@ extension PlateDetectorViewController: PlateDetectorDelegate {
     func plateDetector(didDetectPlates plates: [PlateModel]) {
         guard !plates.isEmpty else {
             self.plateLabel.text = nil
+            self.update(plateBounds: [])
             return
         }
         
         self.plateLabel.text = plates.first?.licensePlate
         self.update(plateBounds: plates.compactMap({ $0.box }))
+        
         for plate in plates{
             let model = fuzzyMatch(plate: plate.licensePlate)
             
             guard let model = model else {
-                return
+                continue
             }
             
-            let isReported = self.reportedAmberAlerts.contains(where: {(alert) -> Bool in
-                if alert.alertId == model.alertId{
-                    return true
-                }
-                return false
-            })
+            let isReported = self.reportedAmberAlertIDs.contains(model.alertId)
+
             if !isReported{
-                self.reportedAmberAlerts.append(model)
+                self.reportedAmberAlertIDs.insert(model.alertId)
+                self.requestToCall911(for: model)
             }
-            // add delay for post
-            let seconds = 2.0
-            DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                //print("reported")
-                self.amberAlertNetworkMatchReport.report(model: model, latitude: self.latitude, longitude: self.longitude) { [weak self] error in
-                    DispatchQueue.main.async {
-                        if let error = error {
-                            print(error.localizedDescription)
-                            
-                            let alert = UIAlertController(title: "", message: "Failed to report \(model.licensePlateNo).", preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                            self?.present(alert, animated: true)
-                            
-                            return
-                        }
-                        
-                        if !isReported {
-                            let alert = UIAlertController(title: "", message: "License plate \(model.licensePlateNo) has been reported.", preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                            self?.present(alert, animated: true)
-                        }
-                        
-                    }
-                }
-                
-            }
-            
-            print(model.licensePlateNo)
+
+            operationQueue.addOperation(model: model, latitude: self.latitude, longitude: self.longitude) { _ in }
         }
-         
     }
 
     func fuzzyMatch(plate: String) -> AmberAlertModel? {
@@ -239,4 +211,25 @@ extension PlateDetectorViewController: PlateDetectorDelegate {
         return nil
     }
     
+    private func showReportConfirmation(for model: AmberAlertModel) {
+        let alert = UIAlertController(title: "", message: "License plate \(model.licensePlateNo) has been reported to LuK.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    private func requestToCall911(for model: AmberAlertModel) {
+        let alert = UIAlertController(title: "Licence plate match found for \(model.licensePlateNo)", message: "Do you want to call 911?", preferredStyle: .actionSheet)
+
+        alert.addAction(UIAlertAction(title: "Call 911", style: .destructive, handler: { _ in
+            guard let url = URL(string: "tel://\(UserDefaults.standard.phoneNumber)"),
+                UIApplication.shared.canOpenURL(url) else {
+                return
+            }
+
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
 }
