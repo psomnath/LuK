@@ -17,6 +17,7 @@ class PlateDetectorViewController: UIViewController {
     private var imageBounds: CGRect?
     private var amberAlerts = [AmberAlertModel]()
     private var locationManager: CLLocationManager
+    private var amberAlertNetworkMatchReport: AmberAlertNetworkMatchReport
     
     private let videoPreview: UIView = {
        let view = UIView()
@@ -41,7 +42,7 @@ class PlateDetectorViewController: UIViewController {
         self.plateDetector = PlateDetector()
         self.ambertAlertNetworkFetcher = AmberAlertNextworkFetcher()
         self.cameraController = CameraController(fps: 30, sessionPreset: .vga640x480)
-        
+        self.amberAlertNetworkMatchReport = AmberAlertNetworkMatchReport()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -168,30 +169,47 @@ extension PlateDetectorViewController: PlateDetectorDelegate {
         self.plateLabel.text = plates.first?.licensePlate
         let plate = self.plateLabel.text
         self.update(plateBounds: plates.compactMap({ $0.box }))
+        
         let result = fuzzyMatch(plate: plate!)
-        if( result != "No match"){
-            // call API
-            print(result)
+        if(result != nil){
+            self.amberAlertNetworkMatchReport.report(model: result!) { [weak self] error in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        print(error.localizedDescription)
+                        
+                        let alert = UIAlertController(title: "", message: "Failed to report \(result?.licensePlateNo).", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                        self?.present(alert, animated: true)
+                        
+                        return
+                    }
+                    
+                    let alert = UIAlertController(title: "", message: "License plate \(result?.licensePlateNo) has been reported.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self?.present(alert, animated: true)
+                }
+            }
+            print(result as Any)
         }
     }
-    func fuzzyMatch(plate: String) -> String{
+    func fuzzyMatch(plate: String) -> AmberAlertModel?{
         let fuse = Fuse()
-        for alert in amberAlerts{
-            //let pattern = fuse.createPattern(from: alert.licensePlateNo)
+        for alert in self.amberAlerts{
+            
             let result = fuse.search(alert.licensePlateNo, in: plate)
-//            print(result?.score)
-//            return plate + alert.licensePlateNo
+
             if result?.score == 0 {
-                return "Full match " + alert.licensePlateNo + "" + plate
+                return alert
             }
             else if result?.score ?? 0 < 0.2 && result?.score ?? 0 > 0 {
-                return "Moderate match " + alert.licensePlateNo + "" + plate
+                print("Moderate match " + alert.licensePlateNo + "" + plate)
+                return alert
             }
             else{
-                print(result?.score)
+                print(result?.score as Any)
             }
         }
-        return "No match"
+        return nil
     }
     
 }
