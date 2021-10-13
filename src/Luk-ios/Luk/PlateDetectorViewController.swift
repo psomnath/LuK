@@ -16,6 +16,7 @@ class PlateDetectorViewController: UIViewController {
     private let ambertAlertNetworkFetcher: AmberAlertNextworkFetcher
     private var imageBounds: CGRect?
     private var amberAlerts = [AmberAlertModel]()
+    private var reportedAmberAlerts = [AmberAlertModel]()
     private var locationManager: CLLocationManager
     private var amberAlertNetworkMatchReport: AmberAlertNetworkMatchReport
     private var latitude: CLLocationDegrees?
@@ -170,36 +171,52 @@ extension PlateDetectorViewController: PlateDetectorDelegate {
         
         self.plateLabel.text = plates.first?.licensePlate
         self.update(plateBounds: plates.compactMap({ $0.box }))
-
-        guard let plate = self.plateLabel.text else {
-            return
-        }
-        
-        let model = fuzzyMatch(plate: plate)
-        
-        guard let model = model else {
-            return
-        }
-
-        self.amberAlertNetworkMatchReport.report(model: model, latitude: self.latitude, longitude: self.longitude) { [weak self] error in
-            DispatchQueue.main.async {
-                if let error = error {
-                    print(error.localizedDescription)
-                    
-                    let alert = UIAlertController(title: "", message: "Failed to report \(model.licensePlateNo).", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                    self?.present(alert, animated: true)
-                    
-                    return
+        for plate in plates{
+            let model = fuzzyMatch(plate: plate.licensePlate)
+            
+            guard let model = model else {
+                return
+            }
+            
+            let isReported = self.reportedAmberAlerts.contains(where: {(alert) -> Bool in
+                if alert.alertId == model.alertId{
+                    return true
+                }
+                return false
+            })
+            if !isReported{
+                self.reportedAmberAlerts.append(model)
+            }
+            // add delay for post
+            let seconds = 2.0
+            DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                //print("reported")
+                self.amberAlertNetworkMatchReport.report(model: model, latitude: self.latitude, longitude: self.longitude) { [weak self] error in
+                    DispatchQueue.main.async {
+                        if let error = error {
+                            print(error.localizedDescription)
+                            
+                            let alert = UIAlertController(title: "", message: "Failed to report \(model.licensePlateNo).", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                            self?.present(alert, animated: true)
+                            
+                            return
+                        }
+                        
+                        if !isReported {
+                            let alert = UIAlertController(title: "", message: "License plate \(model.licensePlateNo) has been reported.", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                            self?.present(alert, animated: true)
+                        }
+                        
+                    }
                 }
                 
-                let alert = UIAlertController(title: "", message: "License plate \(model.licensePlateNo) has been reported.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self?.present(alert, animated: true)
             }
+            
+            print(model.licensePlateNo)
         }
-
-        print(model.licensePlateNo)
+         
     }
 
     func fuzzyMatch(plate: String) -> AmberAlertModel? {
@@ -211,12 +228,12 @@ extension PlateDetectorViewController: PlateDetectorDelegate {
             if result?.score == 0 {
                 return alert
             }
-            else if result?.score ?? 0 < 0.2 && result?.score ?? 0 > 0 {
+            else if result?.score ?? 1 < 0.2 && result?.score ?? 1 > 0 {
                 print("Moderate match " + alert.licensePlateNo + "" + plate)
                 return alert
             }
             else{
-                print(result?.score ?? 0)
+                print(result?.score ?? 1)
             }
         }
         return nil
