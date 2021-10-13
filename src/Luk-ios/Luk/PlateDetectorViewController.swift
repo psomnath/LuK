@@ -7,6 +7,7 @@ import Vision
 import AVKit
 import CoreMedia
 import CoreLocation
+import Fuse
 
 class PlateDetectorViewController: UIViewController {
     
@@ -165,6 +166,32 @@ extension PlateDetectorViewController: PlateDetectorDelegate {
         }
         
         self.plateLabel.text = plates.first?.licensePlate
+        let plate = self.plateLabel.text
         self.update(plateBounds: plates.compactMap({ $0.box }))
+        let result = fuzzyMatch(plate: plate!)
+        if( result != "No match"){
+            // call API
+            print(result)
+        }
     }
+    func fuzzyMatch(plate: String) -> String{
+        let fuse = Fuse()
+        for alert in amberAlerts{
+            //let pattern = fuse.createPattern(from: alert.licensePlateNo)
+            let result = fuse.search(alert.licensePlateNo, in: plate)
+//            print(result?.score)
+//            return plate + alert.licensePlateNo
+            if result?.score == 0 {
+                return "Full match " + alert.licensePlateNo + "" + plate
+            }
+            else if result?.score ?? 0 < 0.2 && result?.score ?? 0 > 0 {
+                return "Moderate match " + alert.licensePlateNo + "" + plate
+            }
+            else{
+                print(result?.score)
+            }
+        }
+        return "No match"
+    }
+    
 }

@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CFB8601B08BC037A936DFC1 /* Pods_Luk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCA4D3B09835E2DF784AB378 /* Pods_Luk.framework */; };
 		A20F8A6C271485890049587F /* AmberAlertNetworkFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20F8A6B271485890049587F /* AmberAlertNetworkFetcher.swift */; };
 		A20F8A6E271485AF0049587F /* AmberAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20F8A6D271485AF0049587F /* AmberAlertModel.swift */; };
 		A20F8A702714B4A30049587F /* AmberAlertsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20F8A6F2714B4A30049587F /* AmberAlertsTableViewController.swift */; };
@@ -27,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3376339583DACA3FF0C4B702 /* Pods-Luk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luk.release.xcconfig"; path = "Target Support Files/Pods-Luk/Pods-Luk.release.xcconfig"; sourceTree = "<group>"; };
+		60E3EADEC23851E3E45125C7 /* Pods-Luk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luk.debug.xcconfig"; path = "Target Support Files/Pods-Luk/Pods-Luk.debug.xcconfig"; sourceTree = "<group>"; };
 		A20F8A6B271485890049587F /* AmberAlertNetworkFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmberAlertNetworkFetcher.swift; sourceTree = "<group>"; };
 		A20F8A6D271485AF0049587F /* AmberAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmberAlertModel.swift; sourceTree = "<group>"; };
 		A20F8A6F2714B4A30049587F /* AmberAlertsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmberAlertsTableViewController.swift; sourceTree = "<group>"; };
@@ -46,6 +49,7 @@
 		A29F8DEF27167363001C8D59 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		A29F8DF1271685CB001C8D59 /* AmberAlertCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmberAlertCell.swift; sourceTree = "<group>"; };
 		A29F8DF327168ADC001C8D59 /* AmberAlertNetworkMatchReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmberAlertNetworkMatchReport.swift; sourceTree = "<group>"; };
+		CCA4D3B09835E2DF784AB378 /* Pods_Luk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Luk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,17 +57,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CFB8601B08BC037A936DFC1 /* Pods_Luk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2743A2E9815767E9365E376F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CCA4D3B09835E2DF784AB378 /* Pods_Luk.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6EF957912C1ABA215552FF81 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				60E3EADEC23851E3E45125C7 /* Pods-Luk.debug.xcconfig */,
+				3376339583DACA3FF0C4B702 /* Pods-Luk.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		A252D71B2713C74200F23EF1 = {
 			isa = PBXGroup;
 			children = (
 				A252D7262713C74200F23EF1 /* Luk */,
 				A252D7252713C74200F23EF1 /* Products */,
+				6EF957912C1ABA215552FF81 /* Pods */,
+				2743A2E9815767E9365E376F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -107,9 +131,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A252D7382713C74400F23EF1 /* Build configuration list for PBXNativeTarget "Luk" */;
 			buildPhases = (
+				7269850788F9065AF690011D /* [CP] Check Pods Manifest.lock */,
 				A252D7202713C74200F23EF1 /* Sources */,
 				A252D7212713C74200F23EF1 /* Frameworks */,
 				A252D7222713C74200F23EF1 /* Resources */,
+				175E04053C7FB724DBCC7387 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -164,6 +190,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		175E04053C7FB724DBCC7387 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Luk/Pods-Luk-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Luk/Pods-Luk-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Luk/Pods-Luk-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7269850788F9065AF690011D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Luk-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A252D7202713C74200F23EF1 /* Sources */ = {
@@ -327,6 +395,7 @@
 		};
 		A252D7392713C74400F23EF1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 60E3EADEC23851E3E45125C7 /* Pods-Luk.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -338,7 +407,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.akshitaagarwalla.Luk192763;
+				PRODUCT_BUNDLE_IDENTIFIER = com.microsoft.Luk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -348,6 +417,7 @@
 		};
 		A252D73A2713C74400F23EF1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3376339583DACA3FF0C4B702 /* Pods-Luk.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -359,7 +429,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.akshitaagarwalla.Luk192763;
+				PRODUCT_BUNDLE_IDENTIFIER = com.microsoft.Luk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
