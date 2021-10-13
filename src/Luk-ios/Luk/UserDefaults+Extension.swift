@@ -12,6 +12,7 @@ extension UserDefaults {
         static let deviceIDKey = "Luk_DeviceID"
         static let phoneNumberKey = "Luk_PhoneNumber"
         static let testLicensePlateKey = "Luk_TestLicensePlateKey"
+        static let testAlertTextKey = "Luk_TestAlertTextKey"
     }
     
     var deviceID: String {
@@ -41,5 +42,13 @@ extension UserDefaults {
     
     func updateTestLicensePlate(testLicensePlate: String) {
         UserDefaults.standard.set(testLicensePlate, forKey: Constants.testLicensePlateKey)
+    }
+    
+    var testAlertText: String {
+        return UserDefaults.standard.string(forKey: Constants.testAlertTextKey) ?? ""
+    }
+    
+    func updateTestAlertText(testAlertText: String) {
+        UserDefaults.standard.set(testAlertText, forKey: Constants.testAlertTextKey)
     }
 }

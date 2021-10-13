@@ -30,7 +30,12 @@ class AmberAlertNextworkFetcher {
             print (String(data: data, encoding: .utf8) ?? "")
             
             do {
-                let result = try JSONDecoder().decode([AmberAlertModel].self, from: data)
+                var result = try JSONDecoder().decode([AmberAlertModel].self, from: data)
+                
+                if UserDefaults.standard.testLicensePlate != "" {
+                    result.append(AmberAlertModel(alertId: 0, creationTimeStamp: "0001-01-01T00:00:00", licensePlateNo: UserDefaults.standard.testLicensePlate, alertText: UserDefaults.standard.testAlertText))
+                }
+                
                 completion(.success(result))
             } catch let error {
                 completion(.failure(error))
