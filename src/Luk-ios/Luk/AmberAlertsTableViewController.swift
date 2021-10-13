@@ -154,7 +154,7 @@ extension AmberAlertsTableViewController: AmberAlertCellDelegate {
 
         let alert = UIAlertController(title: "", message: "Do you want to report license plate \(model.licensePlateNo)?", preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Report it", style: .default, handler: { [weak self] _ in
+        alert.addAction(UIAlertAction(title: "Tell LuK", style: .default, handler: { [weak self] _ in
             self?.report(model: model)
         }))
 
