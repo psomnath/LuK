@@ -188,7 +188,7 @@ extension PlateDetectorViewController: PlateDetectorDelegate {
                 return "Moderate match " + alert.licensePlateNo + "" + plate
             }
             else{
-                print(result?.score)
+                print(result?.score ?? 0)
             }
         }
         return "No match"
