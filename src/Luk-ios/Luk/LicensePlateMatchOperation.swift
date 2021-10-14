@@ -38,6 +38,10 @@ class LicensePlateMatchOperation: ConcurrentOperation {
     }
 
     private func execute() {
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.model.writeToPhotoAlbum()
+        }
+
         amberAlertNetworkMatchReport.report(model: model) { [weak self] error in
             self?.completion(error)
             print("Marked as finished LicensePlateMatchOperation with result \(error == nil)")

@@ -187,7 +187,7 @@ extension PlateDetectorViewController: PlateDetectorDelegate {
                 self.requestToCall911(for: model)
             }
 
-            let matchModel = AmberAlertMatchModel(amberAlertModel: model, latitude: self.latitude, longitude: self.longitude, capturedTimeStamp: Date())
+            let matchModel = AmberAlertMatchModel(amberAlertModel: model, latitude: self.latitude, longitude: self.longitude, capturedTimeStamp: Date(), plateModel: plate)
             operationQueue.addOperation(model: matchModel) { _ in }
         }
     }
@@ -207,12 +207,6 @@ extension PlateDetectorViewController: PlateDetectorDelegate {
             }
         }
         return nil
-    }
-    
-    private func showReportConfirmation(for model: AmberAlertModel) {
-        let alert = UIAlertController(title: "", message: "License plate \(model.licensePlateNo) has been reported to LuK.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        self.present(alert, animated: true)
     }
     
     private func requestToCall911(for model: AmberAlertModel) {
