@@ -179,12 +179,12 @@ extension PlateDetectorViewController: PlateDetectorDelegate {
             guard let model = model else {
                 continue
             }
-            
+
             let isReported = self.reportedAmberAlertIDs.contains(model.alertId)
 
             if !isReported{
                 self.reportedAmberAlertIDs.insert(model.alertId)
-                self.requestToCall911(for: model)
+                self.showMatchViewController(for: model, plate: plate)
             }
 
             let matchModel = AmberAlertMatchModel(amberAlertModel: model, latitude: self.latitude, longitude: self.longitude, capturedTimeStamp: Date(), plateModel: plate)
@@ -209,19 +209,23 @@ extension PlateDetectorViewController: PlateDetectorDelegate {
         return nil
     }
     
-    private func requestToCall911(for model: AmberAlertModel) {
-        let alert = UIAlertController(title: "Licence plate match found for \(model.licensePlateNo)", message: "Do you want to call 911?", preferredStyle: .actionSheet)
-
-        alert.addAction(UIAlertAction(title: "Call 911", style: .destructive, handler: { _ in
-            guard let url = URL(string: "tel://\(UserDefaults.standard.phoneNumber)"),
-                UIApplication.shared.canOpenURL(url) else {
-                return
-            }
-
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }))
+    private func showMatchViewController(for model: AmberAlertModel, plate: PlateModel) {
+        guard self.presentedViewController == nil  else {
+            print("The confirmation view will not be shown because there is already a view being presented")
+            return
+        }
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(alert, animated: true)
+        let matchModel = AmberAlertMatchModel(amberAlertModel: model, latitude: self.latitude, longitude: self.longitude, capturedTimeStamp: Date(), plateModel: plate)
+        let vc = PlateMatchViewController(model: matchModel)
+
+        if #available(iOS 15.0, *) {
+            if let presentationController = vc.presentationController as? UISheetPresentationController {
+                presentationController.detents = [.medium()]
+            }
+        } else {
+            vc.modalPresentationStyle = .formSheet
+        }
+
+        self.present(vc, animated: true, completion: nil)
     }
 }

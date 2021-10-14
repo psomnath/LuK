@@ -30,6 +30,7 @@
 		A29F8DFD27177D83001C8D59 /* LicensePlateMatchOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F8DFC27177D83001C8D59 /* LicensePlateMatchOperation.swift */; };
 		A29F8DFF27177D9C001C8D59 /* LicensePlateMatchOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F8DFE27177D9C001C8D59 /* LicensePlateMatchOperationQueue.swift */; };
 		A29F8E0427187433001C8D59 /* AmberAlertMatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F8E0327187433001C8D59 /* AmberAlertMatchModel.swift */; };
+		A29F8E062718AE90001C8D59 /* PlateMatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F8E052718AE90001C8D59 /* PlateMatchViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		A29F8DFC27177D83001C8D59 /* LicensePlateMatchOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlateMatchOperation.swift; sourceTree = "<group>"; };
 		A29F8DFE27177D9C001C8D59 /* LicensePlateMatchOperationQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlateMatchOperationQueue.swift; sourceTree = "<group>"; };
 		A29F8E0327187433001C8D59 /* AmberAlertMatchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmberAlertMatchModel.swift; sourceTree = "<group>"; };
+		A29F8E052718AE90001C8D59 /* PlateMatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlateMatchViewController.swift; sourceTree = "<group>"; };
 		CCA4D3B09835E2DF784AB378 /* Pods_Luk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Luk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -148,6 +150,7 @@
 				A252D72B2713C74200F23EF1 /* PlateDetectorViewController.swift */,
 				A20F8A6F2714B4A30049587F /* AmberAlertsTableViewController.swift */,
 				A29F8DF727176236001C8D59 /* SettingsTableViewController.swift */,
+				A29F8E052718AE90001C8D59 /* PlateMatchViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				A29F8DFD27177D83001C8D59 /* LicensePlateMatchOperation.swift in Sources */,
 				A29F8DFA27177D21001C8D59 /* ConcurrentOperation.swift in Sources */,
 				A252D7422713C9B100F23EF1 /* model_plate_turi.mlmodel in Sources */,
+				A29F8E062718AE90001C8D59 /* PlateMatchViewController.swift in Sources */,
 				A29F8DF027167363001C8D59 /* UserDefaults+Extension.swift in Sources */,
 				A20F8A6C271485890049587F /* AmberAlertNetworkFetcher.swift in Sources */,
 				A29F8DF827176236001C8D59 /* SettingsTableViewController.swift in Sources */,
@@ -453,7 +457,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Q2KY6Z7NZ7;
+				DEVELOPMENT_TEAM = GDND78ECXG;
 				INFOPLIST_FILE = Luk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -475,7 +479,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Q2KY6Z7NZ7;
+				DEVELOPMENT_TEAM = GDND78ECXG;
 				INFOPLIST_FILE = Luk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -106,7 +106,7 @@ class PlateDetector {
 
             var recognizedTexts = [VNRecognizedText]()
             for observation in observations {
-                recognizedTexts.append(contentsOf: observation.topCandidates(3))
+                recognizedTexts.append(contentsOf: observation.topCandidates(5))
             }
             
             guard !recognizedTexts.isEmpty else {
