@@ -29,6 +29,8 @@
 		A29F8DFA27177D21001C8D59 /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F8DF927177D21001C8D59 /* ConcurrentOperation.swift */; };
 		A29F8DFD27177D83001C8D59 /* LicensePlateMatchOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F8DFC27177D83001C8D59 /* LicensePlateMatchOperation.swift */; };
 		A29F8DFF27177D9C001C8D59 /* LicensePlateMatchOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F8DFE27177D9C001C8D59 /* LicensePlateMatchOperationQueue.swift */; };
+		A29F8E0427187433001C8D59 /* AmberAlertMatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F8E0327187433001C8D59 /* AmberAlertMatchModel.swift */; };
+		A29F8E062718AE90001C8D59 /* PlateMatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F8E052718AE90001C8D59 /* PlateMatchViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,8 @@
 		A29F8DF927177D21001C8D59 /* ConcurrentOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
 		A29F8DFC27177D83001C8D59 /* LicensePlateMatchOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlateMatchOperation.swift; sourceTree = "<group>"; };
 		A29F8DFE27177D9C001C8D59 /* LicensePlateMatchOperationQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlateMatchOperationQueue.swift; sourceTree = "<group>"; };
+		A29F8E0327187433001C8D59 /* AmberAlertMatchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmberAlertMatchModel.swift; sourceTree = "<group>"; };
+		A29F8E052718AE90001C8D59 /* PlateMatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlateMatchViewController.swift; sourceTree = "<group>"; };
 		CCA4D3B09835E2DF784AB378 /* Pods_Luk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Luk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -110,24 +114,20 @@
 		A252D7262713C74200F23EF1 /* Luk */ = {
 			isa = PBXGroup;
 			children = (
+				A29F8E022718741A001C8D59 /* Models */,
+				A29F8E012717C909001C8D59 /* Network */,
+				A29F8E002717C8E2001C8D59 /* ViewControllers */,
 				A29F8DFB27177D68001C8D59 /* OperationQueue */,
 				A252D7412713C9B100F23EF1 /* model_plate_turi.mlmodel */,
 				A252D7272713C74200F23EF1 /* AppDelegate.swift */,
 				A252D7292713C74200F23EF1 /* SceneDelegate.swift */,
-				A252D72B2713C74200F23EF1 /* PlateDetectorViewController.swift */,
-				A20F8A6F2714B4A30049587F /* AmberAlertsTableViewController.swift */,
-				A29F8DF727176236001C8D59 /* SettingsTableViewController.swift */,
 				A252D72D2713C74200F23EF1 /* Main.storyboard */,
 				A252D7302713C74400F23EF1 /* Assets.xcassets */,
 				A252D7322713C74400F23EF1 /* LaunchScreen.storyboard */,
 				A252D7352713C74400F23EF1 /* Info.plist */,
 				A252D73B2713C78400F23EF1 /* CameraController.swift */,
 				A252D73D2713C8C500F23EF1 /* PlateDetector.swift */,
-				A252D7452713D08B00F23EF1 /* PlateModel.swift */,
 				A252D7432713CF6000F23EF1 /* UIImage+Extension.swift */,
-				A20F8A6B271485890049587F /* AmberAlertNetworkFetcher.swift */,
-				A29F8DF327168ADC001C8D59 /* AmberAlertNetworkMatchReport.swift */,
-				A20F8A6D271485AF0049587F /* AmberAlertModel.swift */,
 				A29F8DF1271685CB001C8D59 /* AmberAlertCell.swift */,
 				A29F8DEF27167363001C8D59 /* UserDefaults+Extension.swift */,
 			);
@@ -142,6 +142,36 @@
 				A29F8DFE27177D9C001C8D59 /* LicensePlateMatchOperationQueue.swift */,
 			);
 			name = OperationQueue;
+			sourceTree = "<group>";
+		};
+		A29F8E002717C8E2001C8D59 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				A252D72B2713C74200F23EF1 /* PlateDetectorViewController.swift */,
+				A20F8A6F2714B4A30049587F /* AmberAlertsTableViewController.swift */,
+				A29F8DF727176236001C8D59 /* SettingsTableViewController.swift */,
+				A29F8E052718AE90001C8D59 /* PlateMatchViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		A29F8E012717C909001C8D59 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A20F8A6B271485890049587F /* AmberAlertNetworkFetcher.swift */,
+				A29F8DF327168ADC001C8D59 /* AmberAlertNetworkMatchReport.swift */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
+		A29F8E022718741A001C8D59 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A252D7452713D08B00F23EF1 /* PlateModel.swift */,
+				A20F8A6D271485AF0049587F /* AmberAlertModel.swift */,
+				A29F8E0327187433001C8D59 /* AmberAlertMatchModel.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,9 +299,11 @@
 				A29F8DFD27177D83001C8D59 /* LicensePlateMatchOperation.swift in Sources */,
 				A29F8DFA27177D21001C8D59 /* ConcurrentOperation.swift in Sources */,
 				A252D7422713C9B100F23EF1 /* model_plate_turi.mlmodel in Sources */,
+				A29F8E062718AE90001C8D59 /* PlateMatchViewController.swift in Sources */,
 				A29F8DF027167363001C8D59 /* UserDefaults+Extension.swift in Sources */,
 				A20F8A6C271485890049587F /* AmberAlertNetworkFetcher.swift in Sources */,
 				A29F8DF827176236001C8D59 /* SettingsTableViewController.swift in Sources */,
+				A29F8E0427187433001C8D59 /* AmberAlertMatchModel.swift in Sources */,
 				A29F8DFF27177D9C001C8D59 /* LicensePlateMatchOperationQueue.swift in Sources */,
 				A252D7462713D08B00F23EF1 /* PlateModel.swift in Sources */,
 				A29F8DF2271685CB001C8D59 /* AmberAlertCell.swift in Sources */,
@@ -431,7 +463,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.microsoft.Luk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.microsoftLuk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -453,7 +485,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.microsoft.Luk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.microsoftLuk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

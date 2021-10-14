@@ -21,29 +21,27 @@ public class LicensePlateMatchOperationQueue {
         operationQueue.cancelAllOperations()
     }
 
-    func addOperation(model: AmberAlertModel, latitude: CLLocationDegrees?, longitude: CLLocationDegrees?, completion: @escaping (Error?) -> Void) {
+    func addOperation(model: AmberAlertMatchModel, completion: @escaping (Error?) -> Void) {
         guard !hasAmberAlertInQueue(model) else {
-            print("Amber alert with id \(model.licensePlateNo) will be skipped because it is already in the queue")
+            print("Amber alert with id \(model.amberAlertModel.licensePlateNo) will be skipped because it is already in the queue")
             return
         }
 
-        print("Amber alert with id \(model.licensePlateNo) will be added to the queue")
+        print("Amber alert with id \(model.amberAlertModel.licensePlateNo) will be added to the queue")
         let operation = LicensePlateMatchOperation(model: model,
-                                                   latitude: latitude,
-                                                   longitude: longitude,
                                                    amberAlertNetworkMatchReport: self.amberAlertNetworkMatchReport,
                                                    completion: completion)
         
         operationQueue.addOperation(operation)
     }
 
-    private func hasAmberAlertInQueue(_ model: AmberAlertModel) -> Bool {
+    private func hasAmberAlertInQueue(_ model: AmberAlertMatchModel) -> Bool {
         guard !operationQueue.operations.isEmpty else {
             return false
         }
         
         return operationQueue.operations.contains(where: { operation in
-            guard let operation = operation as? LicensePlateMatchOperation, operation.model.alertId == model.alertId, (operation.state == .executing || operation.state == .ready) else {
+            guard let operation = operation as? LicensePlateMatchOperation, operation.model.amberAlertModel.alertId == model.amberAlertModel.alertId, (operation.state == .executing || operation.state == .ready) else {
                 return false
             }
             

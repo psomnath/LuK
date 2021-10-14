@@ -6,12 +6,19 @@ import Foundation
 import CoreLocation
 
 class AmberAlertNetworkMatchReport {
-    func report(model: AmberAlertModel, latitude: CLLocationDegrees?, longitude: CLLocationDegrees?, completion: @escaping (Error?) -> Void) {
-        let parameters:  [String : Any] = ["alertId": model.alertId,
-                                           "capturedTimeStamp": "0001-01-01T00:00:00",
-                                           "licensePlateNo": model.licensePlateNo,
+    private let dateTimeFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        return dateFormatter
+    }()
+
+    func report(model: AmberAlertMatchModel, completion: @escaping (Error?) -> Void) {
+        let parameters:  [String : Any] = ["alertId": model.amberAlertModel.alertId,
+                                           "capturedTimeStamp": dateTimeFormatter.string(from: model.capturedTimeStamp),
+                                           "licensePlateNo": model.amberAlertModel.licensePlateNo,
                                            "deviceId": UserDefaults.standard.deviceID,
-                                           "geoLocation": self.geoLocation(latitude: latitude, longitude: longitude)]
+                                           "geoLocation": self.geoLocation(latitude: model.latitude, longitude: model.longitude)]
         let url = URL(string: "https://lukapi.azurewebsites.net/amberalert/Report")!
 
         var request = URLRequest(url: url)

@@ -6,21 +6,15 @@ import Foundation
 import CoreLocation
 
 class LicensePlateMatchOperation: ConcurrentOperation {
-    let model: AmberAlertModel
-    let latitude: CLLocationDegrees?
-    let longitude: CLLocationDegrees?
+    let model: AmberAlertMatchModel
     let completion: (Error?) -> Void
     let amberAlertNetworkMatchReport: AmberAlertNetworkMatchReport
     
-    init(model: AmberAlertModel,
-         latitude: CLLocationDegrees?,
-         longitude: CLLocationDegrees?,
+    init(model: AmberAlertMatchModel,
          amberAlertNetworkMatchReport: AmberAlertNetworkMatchReport,
          completion: @escaping (Error?) -> Void) {
         self.model = model
         self.completion = completion
-        self.latitude = latitude
-        self.longitude = longitude
         self.amberAlertNetworkMatchReport = amberAlertNetworkMatchReport
         super.init()
     }
@@ -44,7 +38,11 @@ class LicensePlateMatchOperation: ConcurrentOperation {
     }
 
     private func execute() {
-        amberAlertNetworkMatchReport.report(model: model, latitude: latitude, longitude: longitude) { [weak self] error in
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.model.writeToPhotoAlbum()
+        }
+
+        amberAlertNetworkMatchReport.report(model: model) { [weak self] error in
             self?.completion(error)
             print("Marked as finished LicensePlateMatchOperation with result \(error == nil)")
 

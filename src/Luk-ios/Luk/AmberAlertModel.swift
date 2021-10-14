@@ -10,3 +10,4 @@ struct AmberAlertModel: Codable {
     let licensePlateNo: String
     let alertText: String?
 }
+

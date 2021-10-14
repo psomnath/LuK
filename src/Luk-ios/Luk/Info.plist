@@ -24,6 +24,8 @@
 	<string>Luk needs camera access to search for license plates</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Luk needs access to your location so that it can save the location where the searched license place was found.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Luk needs to write to your photo library to store the license plates that have a match with Amber Alerts.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

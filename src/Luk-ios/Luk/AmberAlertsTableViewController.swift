@@ -118,6 +118,7 @@ class AmberAlertsTableViewController: UITableViewController {
      
         let amberAlert = self.amberAlerts[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: AmberAlertCell.reuseIdentifier, for: indexPath) as! AmberAlertCell
+        cell.notificationButton.isHidden = true
         cell.update(model: amberAlert)
         cell.delegate = self
         return cell
@@ -166,7 +167,8 @@ extension AmberAlertsTableViewController: AmberAlertCellDelegate {
         }))
 
         alert.addAction(UIAlertAction(title: "Call 911", style: .destructive, handler: { [weak self] _ in
-            self?.amberAlertNetworkMatchReport.report(model: model, latitude: self?.latitude, longitude: self?.longitude) { _ in }
+            let matchModel = AmberAlertMatchModel(amberAlertModel: model, latitude: self?.latitude, longitude: self?.longitude, capturedTimeStamp: Date(), plateModel: nil)
+            self?.amberAlertNetworkMatchReport.report(model: matchModel) { _ in }
             self?.call911()
         }))
         
@@ -175,7 +177,8 @@ extension AmberAlertsTableViewController: AmberAlertCellDelegate {
     }
     
     private func report(model: AmberAlertModel) {
-        self.amberAlertNetworkMatchReport.report(model: model, latitude: self.latitude, longitude: self.longitude) { [weak self] error in
+        let matchModel = AmberAlertMatchModel(amberAlertModel: model, latitude: self.latitude, longitude: self.longitude, capturedTimeStamp: Date(), plateModel: nil)
+        self.amberAlertNetworkMatchReport.report(model: matchModel) { [weak self] error in
             DispatchQueue.main.async {
                 if let error = error {
                     print(error.localizedDescription)
@@ -194,6 +197,30 @@ extension AmberAlertsTableViewController: AmberAlertCellDelegate {
         }
     }
     
+    func sendLocalNotification(licencePlateNo: String?) {
+        guard let licencePlateNo = licencePlateNo else {
+            return
+        }
+        
+        let center = UNUserNotificationCenter.current()
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Amber Alert detected"
+        content.body = "There is an Amber Alert issued for the licence plate number: \(licencePlateNo)."
+        content.sound = .default
+        content.categoryIdentifier = "AMBER_ALERT"
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: "LocalNotification", content: content, trigger: trigger)
+        
+        center.add(request) { (error) in
+            if error != nil {
+                print ("Error = \(error?.localizedDescription ?? "error local notification")")
+            }
+        }
+    }
+    
     private func call911() {
         guard let url = URL(string: "tel://\(UserDefaults.standard.phoneNumber)"),
             UIApplication.shared.canOpenURL(url) else {
@@ -201,5 +228,30 @@ extension AmberAlertsTableViewController: AmberAlertCellDelegate {
         }
 
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+}
+
+extension AmberAlertsTableViewController: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        switch response.actionIdentifier {
+        case "MONITOR_ACTION":
+            if let vc = self.presentingViewController {
+                if vc is PlateDetectorViewController {
+                    return
+                }
+            }
+            
+            self.navigationController!.popToViewController(self, animated: true);
+            let plateDetectorViewController = PlateDetectorViewController()
+            self.navigationController?.present(plateDetectorViewController, animated: true, completion: nil)
+        
+        case "DISMISS_ACTION":
+            break
+
+        default:
+            break
+        }
+
+        completionHandler()
     }
 }

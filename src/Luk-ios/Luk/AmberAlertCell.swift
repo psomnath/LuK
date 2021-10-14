@@ -4,9 +4,11 @@
 
 import Foundation
 import UIKit
+import UserNotifications
 
 protocol AmberAlertCellDelegate: AnyObject {
     func didTapReportIt(model: AmberAlertModel?)
+    func sendLocalNotification(licencePlateNo: String?)
 }
 
 class AmberAlertCell: UITableViewCell {
@@ -43,6 +45,19 @@ class AmberAlertCell: UITableViewCell {
         return label
     }()
     
+    public lazy var notificationButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.font = .preferredFont(forTextStyle: .footnote)
+        button.setTitle("Notify", for: .normal)
+        button.setTitleColor(.label, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.sizeToFit()
+        button.layer.cornerRadius = 10
+        button.layer.borderWidth = 0.5
+        button.addTarget(self, action: #selector(sendLocalNotification), for: .touchDown)
+        return button
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         
@@ -51,6 +66,7 @@ class AmberAlertCell: UITableViewCell {
         self.contentView.addSubview(plateLabel)
         self.contentView.addSubview(alertLabel)
         self.contentView.addSubview(button)
+        self.contentView.addSubview(notificationButton)
 
         plateLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10).isActive = true
         plateLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10).isActive = true
@@ -70,6 +86,13 @@ class AmberAlertCell: UITableViewCell {
         button.widthAnchor.constraint(equalTo: self.button.titleLabel!.widthAnchor, constant: 20).isActive = true
         button.titleLabel?.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         button.titleLabel?.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        
+        notificationButton.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
+        notificationButton.heightAnchor.constraint(equalTo: button.titleLabel!.heightAnchor, constant: 10).isActive = true
+        notificationButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -100).isActive = true
+        notificationButton.widthAnchor.constraint(equalTo: self.button.titleLabel!.widthAnchor, constant: 20).isActive = true
+        notificationButton.titleLabel?.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        notificationButton.titleLabel?.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
     }
     
     required init?(coder: NSCoder) {
@@ -96,5 +119,9 @@ class AmberAlertCell: UITableViewCell {
     
     @objc private func didTapReportIt() {
         delegate?.didTapReportIt(model: self.model)
+    }
+    
+    @objc private func sendLocalNotification(){
+        delegate?.sendLocalNotification(licencePlateNo: self.model?.licensePlateNo)
     }
 }

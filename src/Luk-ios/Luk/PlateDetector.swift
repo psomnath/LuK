@@ -77,11 +77,8 @@ class PlateDetector {
                 continue
             }
             
-            self.detectText(boundingBox: boundingBox, croppedImage: croppedImage) { [weak self] plate in
-                if let plate = plate {
-                    plates.append(plate)
-                }
-                
+            self.detectText(boundingBox: boundingBox, croppedImage: croppedImage) { [weak self] newPlates in
+                plates.append(contentsOf: newPlates)
                 self?.group.leave()
             }
         }
@@ -95,20 +92,32 @@ class PlateDetector {
         }
     }
 
-    private func detectText(boundingBox: CGRect, croppedImage: UIImage, completion: @escaping (PlateModel?) -> Void) {
+    private func detectText(boundingBox: CGRect, croppedImage: UIImage, completion: @escaping ([PlateModel]) -> Void) {
         guard let cgImage = croppedImage.cgImage, let imageSize = self.imageBounds?.size else {
-            completion(nil)
+            completion([])
             return
         }
         
         let request = VNRecognizeTextRequest { request, error in
-            guard let observations = request.results as? [VNRecognizedTextObservation],
-                  let text = observations.compactMap({ $0.topCandidates(1).first }).first?.string  else {
-                completion (nil)
+            guard let observations = request.results as? [VNRecognizedTextObservation]  else {
+                completion ([])
                 return
             }
 
-            completion(PlateModel(licensePlate: text, box: boundingBox.convertBoundingBox(size: imageSize), image: croppedImage))
+            var recognizedTexts = [VNRecognizedText]()
+            for observation in observations {
+                recognizedTexts.append(contentsOf: observation.topCandidates(5))
+            }
+            
+            guard !recognizedTexts.isEmpty else {
+                completion([])
+                return
+            }
+            
+            let box = boundingBox.convertBoundingBox(size: imageSize)
+            let plateModels: [PlateModel] = recognizedTexts.compactMap { PlateModel(licensePlate: $0.string, box: box, image: croppedImage) }
+            
+            completion(plateModels)
         }
 
         request.recognitionLevel = .accurate
@@ -118,9 +127,8 @@ class PlateDetector {
         do {
             try requestHandler.perform([request])
         } catch {
-            completion(nil)
+            completion([])
         }
-        
     }
     
     private static func visionModel() -> VNCoreMLModel? {
