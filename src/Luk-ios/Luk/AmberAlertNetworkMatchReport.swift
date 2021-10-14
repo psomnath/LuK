@@ -14,11 +14,15 @@ class AmberAlertNetworkMatchReport {
     }()
 
     func report(model: AmberAlertMatchModel, completion: @escaping (Error?) -> Void) {
-        let parameters:  [String : Any] = ["alertId": model.amberAlertModel.alertId,
+        var parameters:  [String : Any] = ["alertId": model.amberAlertModel.alertId,
                                            "capturedTimeStamp": dateTimeFormatter.string(from: model.capturedTimeStamp),
                                            "licensePlateNo": model.amberAlertModel.licensePlateNo,
                                            "deviceId": UserDefaults.standard.deviceID,
                                            "geoLocation": self.geoLocation(latitude: model.latitude, longitude: model.longitude)]
+        if let imageBase64String = model.plateModel?.image?.jpegData(compressionQuality: 1)?.base64EncodedString() {
+            parameters["CapturedImageBytes"] = imageBase64String
+        }
+        
         let url = URL(string: "https://lukapi.azurewebsites.net/amberalert/Report")!
 
         var request = URLRequest(url: url)
