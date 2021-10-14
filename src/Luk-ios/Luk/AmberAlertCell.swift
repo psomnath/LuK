@@ -45,7 +45,7 @@ class AmberAlertCell: UITableViewCell {
         return label
     }()
     
-    private lazy var notificationButton: UIButton = {
+    public lazy var notificationButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.titleLabel?.font = .preferredFont(forTextStyle: .footnote)
         button.setTitle("Notify", for: .normal)

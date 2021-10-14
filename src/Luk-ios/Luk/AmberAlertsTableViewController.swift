@@ -118,6 +118,7 @@ class AmberAlertsTableViewController: UITableViewController {
      
         let amberAlert = self.amberAlerts[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: AmberAlertCell.reuseIdentifier, for: indexPath) as! AmberAlertCell
+        cell.notificationButton.isHidden = true
         cell.update(model: amberAlert)
         cell.delegate = self
         return cell
