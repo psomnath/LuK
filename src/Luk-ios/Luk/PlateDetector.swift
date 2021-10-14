@@ -106,7 +106,7 @@ class PlateDetector {
 
             var recognizedTexts = [VNRecognizedText]()
             for observation in observations {
-                let texts = observation.topCandidates(3).filter { $0.confidence > 0.8 }
+                let texts = observation.topCandidates(3).filter { $0.confidence > 0.7 }
                 recognizedTexts.append(contentsOf: texts)
             }
             
