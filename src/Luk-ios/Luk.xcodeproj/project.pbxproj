@@ -110,13 +110,12 @@
 		A252D7262713C74200F23EF1 /* Luk */ = {
 			isa = PBXGroup;
 			children = (
+				A29F8E012717C909001C8D59 /* Network */,
+				A29F8E002717C8E2001C8D59 /* ViewControllers */,
 				A29F8DFB27177D68001C8D59 /* OperationQueue */,
 				A252D7412713C9B100F23EF1 /* model_plate_turi.mlmodel */,
 				A252D7272713C74200F23EF1 /* AppDelegate.swift */,
 				A252D7292713C74200F23EF1 /* SceneDelegate.swift */,
-				A252D72B2713C74200F23EF1 /* PlateDetectorViewController.swift */,
-				A20F8A6F2714B4A30049587F /* AmberAlertsTableViewController.swift */,
-				A29F8DF727176236001C8D59 /* SettingsTableViewController.swift */,
 				A252D72D2713C74200F23EF1 /* Main.storyboard */,
 				A252D7302713C74400F23EF1 /* Assets.xcassets */,
 				A252D7322713C74400F23EF1 /* LaunchScreen.storyboard */,
@@ -125,8 +124,6 @@
 				A252D73D2713C8C500F23EF1 /* PlateDetector.swift */,
 				A252D7452713D08B00F23EF1 /* PlateModel.swift */,
 				A252D7432713CF6000F23EF1 /* UIImage+Extension.swift */,
-				A20F8A6B271485890049587F /* AmberAlertNetworkFetcher.swift */,
-				A29F8DF327168ADC001C8D59 /* AmberAlertNetworkMatchReport.swift */,
 				A20F8A6D271485AF0049587F /* AmberAlertModel.swift */,
 				A29F8DF1271685CB001C8D59 /* AmberAlertCell.swift */,
 				A29F8DEF27167363001C8D59 /* UserDefaults+Extension.swift */,
@@ -142,6 +139,25 @@
 				A29F8DFE27177D9C001C8D59 /* LicensePlateMatchOperationQueue.swift */,
 			);
 			name = OperationQueue;
+			sourceTree = "<group>";
+		};
+		A29F8E002717C8E2001C8D59 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				A252D72B2713C74200F23EF1 /* PlateDetectorViewController.swift */,
+				A20F8A6F2714B4A30049587F /* AmberAlertsTableViewController.swift */,
+				A29F8DF727176236001C8D59 /* SettingsTableViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		A29F8E012717C909001C8D59 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A20F8A6B271485890049587F /* AmberAlertNetworkFetcher.swift */,
+				A29F8DF327168ADC001C8D59 /* AmberAlertNetworkMatchReport.swift */,
+			);
+			name = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

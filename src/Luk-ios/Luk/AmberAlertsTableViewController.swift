@@ -166,7 +166,8 @@ extension AmberAlertsTableViewController: AmberAlertCellDelegate {
         }))
 
         alert.addAction(UIAlertAction(title: "Call 911", style: .destructive, handler: { [weak self] _ in
-            self?.amberAlertNetworkMatchReport.report(model: model, latitude: self?.latitude, longitude: self?.longitude) { _ in }
+            let matchModel = AmberAlertMatchModel(amberAlertModel: model, latitude: self?.latitude, longitude: self?.longitude, capturedTimeStamp: Date())
+            self?.amberAlertNetworkMatchReport.report(model: matchModel) { _ in }
             self?.call911()
         }))
         
@@ -175,7 +176,8 @@ extension AmberAlertsTableViewController: AmberAlertCellDelegate {
     }
     
     private func report(model: AmberAlertModel) {
-        self.amberAlertNetworkMatchReport.report(model: model, latitude: self.latitude, longitude: self.longitude) { [weak self] error in
+        let matchModel = AmberAlertMatchModel(amberAlertModel: model, latitude: self.latitude, longitude: self.longitude, capturedTimeStamp: Date())
+        self.amberAlertNetworkMatchReport.report(model: matchModel) { [weak self] error in
             DispatchQueue.main.async {
                 if let error = error {
                     print(error.localizedDescription)

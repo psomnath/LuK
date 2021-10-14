@@ -187,7 +187,8 @@ extension PlateDetectorViewController: PlateDetectorDelegate {
                 self.requestToCall911(for: model)
             }
 
-            operationQueue.addOperation(model: model, latitude: self.latitude, longitude: self.longitude) { _ in }
+            let matchModel = AmberAlertMatchModel(amberAlertModel: model, latitude: self.latitude, longitude: self.longitude, capturedTimeStamp: Date())
+            operationQueue.addOperation(model: matchModel) { _ in }
         }
     }
 
