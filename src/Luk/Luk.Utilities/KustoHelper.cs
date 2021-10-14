@@ -59,7 +59,7 @@ namespace Luk.Utilities
         public void InsertIntoMatchedAlerts(AlertMatch data)
         {
             string query = string.Format(KustoQueries.INSERT_INTO_MATCHEDALERTS, Environment.NewLine, data.AlertId,
-                            data.CapturedTimeStamp.ToString("o").Substring(0, 19), data.LicensePlateNo, data.Latitude, data.Longitude, data.DeviceId, Guid.NewGuid());
+                            data.CapturedTimeStamp.ToString("o").Substring(0, 19), data.LicensePlateNo, data.Latitude, data.Longitude, data.DeviceId, Guid.NewGuid(), data.CapturedImageUrl);
 
             ExecuteKustoManagementCommand(query);
         }
@@ -118,7 +118,7 @@ namespace Luk.Utilities
         public static string CLEAR_ACTIVEALERTS = ".clear table ActiveAlerts data";
 
         public static string INSERT_INTO_ACTIVEALERTS = ".ingest inline into table ActiveAlerts <| {0} {1}, \"{2}\", \"{3}\", \"{4}\", \"{5}\" ,\"{6}\",\"{7}\"";
-        public static string INSERT_INTO_MATCHEDALERTS = ".ingest inline into table MatchedAlerts <| {0} {1}, \"{2}\", \"{3}\", {4}, {5} ,\"{6}\",\"{7}\"";
+        public static string INSERT_INTO_MATCHEDALERTS = ".ingest inline into table MatchedAlerts <| {0} {1}, \"{2}\", \"{3}\", {4}, {5} ,\"{6}\",\"{7}\",{8}";
 
         public static string GET_ACTIVEALERTS = "ActiveAlerts | project AlertId, CreationTimeStamp, LicensePlateNo, AlertText, LicensePlateState ";
 
