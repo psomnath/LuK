@@ -173,7 +173,7 @@ extension PlateDetectorViewController: PlateDetectorDelegate {
         self.plateLabel.text = plates.first?.licensePlate
         self.update(plateBounds: plates.compactMap({ $0.box }))
         
-        for plate in plates{
+        for plate in plates {
             let model = fuzzyMatch(plate: plate.licensePlate)
             
             guard let model = model else {
@@ -203,9 +203,6 @@ extension PlateDetectorViewController: PlateDetectorDelegate {
             else if result?.score ?? 1 < 0.2 && result?.score ?? 1 > 0 {
                 print("Moderate match " + alert.licensePlateNo + "" + plate)
                 return alert
-            }
-            else{
-                print(result?.score ?? 1)
             }
         }
         return nil
