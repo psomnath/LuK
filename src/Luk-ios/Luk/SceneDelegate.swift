@@ -14,7 +14,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         
-        let navigationViewController = UINavigationController(rootViewController: AmberAlertsTableViewController())
+        let amberAlertsTableViewController = AmberAlertsTableViewController()
+        UNUserNotificationCenter.current().delegate = amberAlertsTableViewController
+        
+        let navigationViewController = UINavigationController(rootViewController: amberAlertsTableViewController)
         window?.rootViewController = navigationViewController
         window?.makeKeyAndVisible()
     }

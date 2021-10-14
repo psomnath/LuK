@@ -207,6 +207,7 @@ extension AmberAlertsTableViewController: AmberAlertCellDelegate {
         content.title = "Amber Alert detected"
         content.body = "There is an Amber Alert issued for the licence plate number: \(licencePlateNo).\nPlease start monitoring."
         content.sound = .default
+        content.categoryIdentifier = "AMBER_ALERT"
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
         
@@ -226,5 +227,30 @@ extension AmberAlertsTableViewController: AmberAlertCellDelegate {
         }
 
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+}
+
+extension AmberAlertsTableViewController: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        switch response.actionIdentifier {
+        case "MONITOR_ACTION":
+            if let vc = self.presentingViewController {
+                if vc is PlateDetectorViewController {
+                    return
+                }
+            }
+            
+            self.navigationController!.popToViewController(self, animated: true);
+            let plateDetectorViewController = PlateDetectorViewController()
+            self.navigationController?.present(plateDetectorViewController, animated: true, completion: nil)
+        
+        case "DISMISS_ACTION":
+            break
+
+        default:
+            break
+        }
+
+        completionHandler()
     }
 }
