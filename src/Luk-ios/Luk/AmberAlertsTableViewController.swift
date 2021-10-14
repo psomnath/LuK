@@ -196,6 +196,29 @@ extension AmberAlertsTableViewController: AmberAlertCellDelegate {
         }
     }
     
+    func sendLocalNotification(licencePlateNo: String?) {
+        guard let licencePlateNo = licencePlateNo else {
+            return
+        }
+        
+        let center = UNUserNotificationCenter.current()
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Amber Alert detected"
+        content.body = "There is an Amber Alert issued for the licence plate number: \(licencePlateNo).\nPlease start monitoring."
+        content.sound = .default
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: "LocalNotification", content: content, trigger: trigger)
+        
+        center.add(request) { (error) in
+            if error != nil {
+                print ("Error = \(error?.localizedDescription ?? "error local notification")")
+            }
+        }
+    }
+    
     private func call911() {
         guard let url = URL(string: "tel://\(UserDefaults.standard.phoneNumber)"),
             UIApplication.shared.canOpenURL(url) else {
