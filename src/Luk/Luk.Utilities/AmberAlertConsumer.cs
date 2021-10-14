@@ -63,7 +63,9 @@ namespace Luk.Utilities
                         CreationTimeStamp = DateTime.Parse(alertDate),
                         LicensePlateNo = GetValidVehiclePlateNo(alertInfo.ChildBean.PersonList, "PlateNo"),
                         LicensePlateState = GetValidVehiclePlateNo(alertInfo.ChildBean.PersonList, "State"),
-                        AlertText = GetValidDescription(alertInfo.ChildBean.PersonList)
+                        AlertText = GetValidDescription(alertInfo.ChildBean.PersonList),
+                        IsActive = true,
+                        SourceJson = response
                     };
                     return alertDetails;
                 }

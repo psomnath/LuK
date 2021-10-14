@@ -1,0 +1,21 @@
+﻿.create-or-alter  function 
+GetUpdatesToAlertsMaster()
+{
+    let AlertsRemainActiveInMaster = ()
+    {
+    AlertsMaster
+    | where AlertId !in ((AlertsMaster| where IsActive==false | project AlertId))
+    };
+    AlertsRemainActiveInMaster
+    | join kind=leftouter (ActiveAlerts | project AlertId) on AlertId
+    | where isempty(AlertId1)
+    | project AlertId, CreationTimeStamp = now(),LicensePlateNo,AlertText,LicensePlateState,IsActive=false,SourceJson,ExecutionId = new_guid()
+    | union 
+        (
+            AlertsMaster
+            | project AlertId
+            | join kind=rightouter ActiveAlerts on AlertId
+            | where isempty(AlertId)
+            | project AlertId = AlertId1, CreationTimeStamp,LicensePlateNo,AlertText,LicensePlateState,IsActive=true,SourceJson,ExecutionId
+        )
+}

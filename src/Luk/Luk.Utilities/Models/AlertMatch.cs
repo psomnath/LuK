@@ -15,6 +15,10 @@ namespace Luk.Utilities
 
         public string DeviceId { get; set; }
 
-        public string GeoLocation { get; set; }
+        public string geoLocation { get; set; }
+
+        public double Latitude { get; set; } = 0.0;
+
+        public double Longitude { get; set; } = 0.0;
     }
 }
