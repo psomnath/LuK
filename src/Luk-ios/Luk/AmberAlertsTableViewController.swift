@@ -205,7 +205,7 @@ extension AmberAlertsTableViewController: AmberAlertCellDelegate {
         
         let content = UNMutableNotificationContent()
         content.title = "Amber Alert detected"
-        content.body = "There is an Amber Alert issued for the licence plate number: \(licencePlateNo).\nPlease start monitoring."
+        content.body = "There is an Amber Alert issued for the licence plate number: \(licencePlateNo)."
         content.sound = .default
         content.categoryIdentifier = "AMBER_ALERT"
         

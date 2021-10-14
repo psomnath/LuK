@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print ("User gave permission for local notifications")
             }
             
-            let monitorAction = UNNotificationAction(identifier: "MONITOR_ACTION", title: "Monitor", options: .foreground)
+            let monitorAction = UNNotificationAction(identifier: "MONITOR_ACTION", title: "Start monitoring", options: .foreground)
             let dismissAction = UNNotificationAction(identifier: "DISMISS_ACTION", title: "Dismiss", options: UNNotificationActionOptions(rawValue: 0))
             let category = UNNotificationCategory(identifier: "AMBER_ALERT", actions: [monitorAction, dismissAction], intentIdentifiers: [], options: [])
             UNUserNotificationCenter.current().setNotificationCategories([category])
