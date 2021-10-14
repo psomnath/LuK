@@ -25,7 +25,6 @@ namespace Luk.Api.Controllers
         public IEnumerable<AlertInfo> Get()
         {
             var newAlerts = kustoHelper.GetActiveAlertsFromKusto();
-
             return newAlerts;
         }
 
@@ -33,6 +32,14 @@ namespace Luk.Api.Controllers
         [Route("Report")]
         public void ReportFindings([FromBody] AlertMatch matchedAlert)
         {
+            if(!string.IsNullOrEmpty(matchedAlert.CapturedImageBytes))
+            {
+                var imageId = Guid.NewGuid().ToString()+".jpg";
+
+                AzureBlobHelper.UploadImageToBlob(Convert.FromBase64String(matchedAlert.CapturedImageBytes), imageId);
+                matchedAlert.CapturedImageUrl = $"https://lukfunctionapp2021101318.blob.core.windows.net/matched-images/{imageId}";
+            }
+
             if(!string.IsNullOrEmpty(matchedAlert.geoLocation) && matchedAlert.Latitude==0.0)
             {
                 var geoLocParts = matchedAlert.geoLocation.Split(',');

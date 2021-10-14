@@ -20,5 +20,9 @@ namespace Luk.Utilities
         public double Latitude { get; set; } = 0.0;
 
         public double Longitude { get; set; } = 0.0;
+
+        public string CapturedImageBytes { get; set; }
+
+        public string CapturedImageUrl { get; set; }
     }
 }
