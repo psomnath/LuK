@@ -1,0 +1,612 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2B9D23A6B1FC07961E70DFD6DAAF0EB6 /* String+Fuse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925556F5540EDECAF2BA3247CAF47BD9 /* String+Fuse.swift */; };
+		2C77B5538FEAE9417BA350C95F407ED5 /* FuseUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C14AAF6AE05AD78BC426B125B2F7826 /* FuseUtilities.swift */; };
+		4BF6EEC9EC5085368C4E17E30037D8C6 /* Pods-Luk-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCB4B1AC0FE16C251D8B7840CBF3C36 /* Pods-Luk-dummy.m */; };
+		91B35263E1150B8A74B9D0665D37B84C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		98E9843F266146FAF7BB3BAF398DB873 /* Pods-Luk-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 82C3B3AD6B47DC065FA414F6DF3613A2 /* Pods-Luk-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D730A5BF5E0CCDD6A86BA79B040DBE5C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		E0FF0895BB03E2F6A8A32F2EC1D75D1C /* Fuse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FB7B5A5F35FFA51231E831EEF35555 /* Fuse.swift */; };
+		E829A230CC3568404EC054C44FF201E5 /* Fuse-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C494396F73A4ED9E927EA45F7591CC3C /* Fuse-dummy.m */; };
+		EFD15A7DBF9E5697A7B9B0AAA134A402 /* Fuse-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 68A1AB389D141287028A36DD9321D7F5 /* Fuse-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		12A3E3E3CE37C40A80D7CDE3A519DE7D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 321DED4F241934C91121B3DBA1418D9F;
+			remoteInfo = Fuse;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0514E8F6434ADCD1E99FA8B2C8D4DAE8 /* Pods-Luk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Luk.debug.xcconfig"; sourceTree = "<group>"; };
+		0FAACA4CDCA96BB225E96FC58B6C156A /* Fuse */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Fuse; path = Fuse.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		251D26B34A7377908E3134C4753B231D /* Pods-Luk-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Luk-acknowledgements.plist"; sourceTree = "<group>"; };
+		31FB7B5A5F35FFA51231E831EEF35555 /* Fuse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Fuse.swift; path = Fuse/Classes/Fuse.swift; sourceTree = "<group>"; };
+		3C14AAF6AE05AD78BC426B125B2F7826 /* FuseUtilities.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FuseUtilities.swift; path = Fuse/Classes/FuseUtilities.swift; sourceTree = "<group>"; };
+		4EC5FC7C37EE9E6862C423DF60265B12 /* Pods-Luk-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Luk-frameworks.sh"; sourceTree = "<group>"; };
+		544ECCE94CC08832E66294D49CA044D3 /* Pods-Luk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Luk.release.xcconfig"; sourceTree = "<group>"; };
+		5F80FC2BDCBDDEFFCA41316F2D8AD2EE /* Fuse.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Fuse.modulemap; sourceTree = "<group>"; };
+		68A1AB389D141287028A36DD9321D7F5 /* Fuse-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Fuse-umbrella.h"; sourceTree = "<group>"; };
+		6CB54B0146205275AA0C2D6C88BF1902 /* Fuse.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Fuse.debug.xcconfig; sourceTree = "<group>"; };
+		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		7F71F31B9421003441324E12A25A0CFE /* Pods-Luk */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-Luk"; path = Pods_Luk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		82C3B3AD6B47DC065FA414F6DF3613A2 /* Pods-Luk-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Luk-umbrella.h"; sourceTree = "<group>"; };
+		8B77C85E4B3C6AF7E2081D12BCB079B3 /* Pods-Luk-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Luk-Info.plist"; sourceTree = "<group>"; };
+		925556F5540EDECAF2BA3247CAF47BD9 /* String+Fuse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+Fuse.swift"; path = "Fuse/Classes/String+Fuse.swift"; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9DCB4B1AC0FE16C251D8B7840CBF3C36 /* Pods-Luk-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Luk-dummy.m"; sourceTree = "<group>"; };
+		B0A48F2E7408B5FD2C349B68780E5AA4 /* Fuse.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Fuse.release.xcconfig; sourceTree = "<group>"; };
+		BEBB732EF632D3AA454F77F5C47443B8 /* Fuse-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Fuse-prefix.pch"; sourceTree = "<group>"; };
+		C494396F73A4ED9E927EA45F7591CC3C /* Fuse-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Fuse-dummy.m"; sourceTree = "<group>"; };
+		C98CD81108E43C68C77FFAAC59B91337 /* Pods-Luk-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Luk-acknowledgements.markdown"; sourceTree = "<group>"; };
+		CCE6485380C1A6F02A0DD9BE552E5A3E /* Pods-Luk.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Luk.modulemap"; sourceTree = "<group>"; };
+		DEEF41D4428058F41027A497C330BB75 /* Fuse-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Fuse-Info.plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		52F215F55CFFFABC529BB81F85B9D862 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91B35263E1150B8A74B9D0665D37B84C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		920FEE5F8FE2D5D51E41901C84900051 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D730A5BF5E0CCDD6A86BA79B040DBE5C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3B5017B4A9CABC63910EAE8E55645376 /* Pods-Luk */ = {
+			isa = PBXGroup;
+			children = (
+				CCE6485380C1A6F02A0DD9BE552E5A3E /* Pods-Luk.modulemap */,
+				C98CD81108E43C68C77FFAAC59B91337 /* Pods-Luk-acknowledgements.markdown */,
+				251D26B34A7377908E3134C4753B231D /* Pods-Luk-acknowledgements.plist */,
+				9DCB4B1AC0FE16C251D8B7840CBF3C36 /* Pods-Luk-dummy.m */,
+				4EC5FC7C37EE9E6862C423DF60265B12 /* Pods-Luk-frameworks.sh */,
+				8B77C85E4B3C6AF7E2081D12BCB079B3 /* Pods-Luk-Info.plist */,
+				82C3B3AD6B47DC065FA414F6DF3613A2 /* Pods-Luk-umbrella.h */,
+				0514E8F6434ADCD1E99FA8B2C8D4DAE8 /* Pods-Luk.debug.xcconfig */,
+				544ECCE94CC08832E66294D49CA044D3 /* Pods-Luk.release.xcconfig */,
+			);
+			name = "Pods-Luk";
+			path = "Target Support Files/Pods-Luk";
+			sourceTree = "<group>";
+		};
+		4FAD7F8B8927D5A66BE84EA8E95FC73C /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				3B5017B4A9CABC63910EAE8E55645376 /* Pods-Luk */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		75BAEC370A5244E35B36C6C9E466B04E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F77619DD96496CA5B39E2BEDD233AA37 /* Fuse */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		A23C907AE4132A4ADEFF45745776E20D /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				5F80FC2BDCBDDEFFCA41316F2D8AD2EE /* Fuse.modulemap */,
+				C494396F73A4ED9E927EA45F7591CC3C /* Fuse-dummy.m */,
+				DEEF41D4428058F41027A497C330BB75 /* Fuse-Info.plist */,
+				BEBB732EF632D3AA454F77F5C47443B8 /* Fuse-prefix.pch */,
+				68A1AB389D141287028A36DD9321D7F5 /* Fuse-umbrella.h */,
+				6CB54B0146205275AA0C2D6C88BF1902 /* Fuse.debug.xcconfig */,
+				B0A48F2E7408B5FD2C349B68780E5AA4 /* Fuse.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Fuse";
+			sourceTree = "<group>";
+		};
+		AF663ED9FCAC3E7D197244D2DD17F980 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0FAACA4CDCA96BB225E96FC58B6C156A /* Fuse */,
+				7F71F31B9421003441324E12A25A0CFE /* Pods-Luk */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
+				75BAEC370A5244E35B36C6C9E466B04E /* Pods */,
+				AF663ED9FCAC3E7D197244D2DD17F980 /* Products */,
+				4FAD7F8B8927D5A66BE84EA8E95FC73C /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				578452D2E740E91742655AC8F1636D1F /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F77619DD96496CA5B39E2BEDD233AA37 /* Fuse */ = {
+			isa = PBXGroup;
+			children = (
+				31FB7B5A5F35FFA51231E831EEF35555 /* Fuse.swift */,
+				3C14AAF6AE05AD78BC426B125B2F7826 /* FuseUtilities.swift */,
+				925556F5540EDECAF2BA3247CAF47BD9 /* String+Fuse.swift */,
+				A23C907AE4132A4ADEFF45745776E20D /* Support Files */,
+			);
+			name = Fuse;
+			path = Fuse;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		551A06D3B7440B2D058D493C5CF268F6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EFD15A7DBF9E5697A7B9B0AAA134A402 /* Fuse-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6CFEFB9CB2DC869B6FACF1A258BDC51B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98E9843F266146FAF7BB3BAF398DB873 /* Pods-Luk-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		321DED4F241934C91121B3DBA1418D9F /* Fuse */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 69A01F61D55FA5B28DB7ECD32806DF0F /* Build configuration list for PBXNativeTarget "Fuse" */;
+			buildPhases = (
+				551A06D3B7440B2D058D493C5CF268F6 /* Headers */,
+				D465C11BC370F898822180DF4BA1CF48 /* Sources */,
+				52F215F55CFFFABC529BB81F85B9D862 /* Frameworks */,
+				55C3DDD510CE2323221B241E559639B4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Fuse;
+			productName = Fuse;
+			productReference = 0FAACA4CDCA96BB225E96FC58B6C156A /* Fuse */;
+			productType = "com.apple.product-type.framework";
+		};
+		C7BC5B363E14B30D012FF4F696744408 /* Pods-Luk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FAB1ADABE950259462B4575F76ADC5A5 /* Build configuration list for PBXNativeTarget "Pods-Luk" */;
+			buildPhases = (
+				6CFEFB9CB2DC869B6FACF1A258BDC51B /* Headers */,
+				8AAFCF204573DE7D795DB71D7C61A529 /* Sources */,
+				920FEE5F8FE2D5D51E41901C84900051 /* Frameworks */,
+				ADA7859E0B616566B3D1BC44B72A6337 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F92084ABE5087B13C0C54727498F23D9 /* PBXTargetDependency */,
+			);
+			name = "Pods-Luk";
+			productName = Pods_Luk;
+			productReference = 7F71F31B9421003441324E12A25A0CFE /* Pods-Luk */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 10.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = AF663ED9FCAC3E7D197244D2DD17F980 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				321DED4F241934C91121B3DBA1418D9F /* Fuse */,
+				C7BC5B363E14B30D012FF4F696744408 /* Pods-Luk */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		55C3DDD510CE2323221B241E559639B4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ADA7859E0B616566B3D1BC44B72A6337 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8AAFCF204573DE7D795DB71D7C61A529 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BF6EEC9EC5085368C4E17E30037D8C6 /* Pods-Luk-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D465C11BC370F898822180DF4BA1CF48 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0FF0895BB03E2F6A8A32F2EC1D75D1C /* Fuse.swift in Sources */,
+				E829A230CC3568404EC054C44FF201E5 /* Fuse-dummy.m in Sources */,
+				2C77B5538FEAE9417BA350C95F407ED5 /* FuseUtilities.swift in Sources */,
+				2B9D23A6B1FC07961E70DFD6DAAF0EB6 /* String+Fuse.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F92084ABE5087B13C0C54727498F23D9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Fuse;
+			target = 321DED4F241934C91121B3DBA1418D9F /* Fuse */;
+			targetProxy = 12A3E3E3CE37C40A80D7CDE3A519DE7D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		045FA2CE24A9B02584A476C8FF4CD5FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0514E8F6434ADCD1E99FA8B2C8D4DAE8 /* Pods-Luk.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Luk/Pods-Luk-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Luk/Pods-Luk.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		25AD9454612BF454A1E3DC4CD4FA8C6D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		6C67C39269BACFE91EE7A3D2CD990310 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 544ECCE94CC08832E66294D49CA044D3 /* Pods-Luk.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Luk/Pods-Luk-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Luk/Pods-Luk.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		CA547D2C7E9A8A153DC2B27FBE00B112 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		D9C6762A3B7E9A86436176E8A200FB9E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0A48F2E7408B5FD2C349B68780E5AA4 /* Fuse.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Fuse/Fuse-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Fuse/Fuse-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Fuse/Fuse.modulemap";
+				PRODUCT_MODULE_NAME = Fuse;
+				PRODUCT_NAME = Fuse;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F294852F202BFD93E4A49445494C6B85 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6CB54B0146205275AA0C2D6C88BF1902 /* Fuse.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Fuse/Fuse-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Fuse/Fuse-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Fuse/Fuse.modulemap";
+				PRODUCT_MODULE_NAME = Fuse;
+				PRODUCT_NAME = Fuse;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				25AD9454612BF454A1E3DC4CD4FA8C6D /* Debug */,
+				CA547D2C7E9A8A153DC2B27FBE00B112 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		69A01F61D55FA5B28DB7ECD32806DF0F /* Build configuration list for PBXNativeTarget "Fuse" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F294852F202BFD93E4A49445494C6B85 /* Debug */,
+				D9C6762A3B7E9A86436176E8A200FB9E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FAB1ADABE950259462B4575F76ADC5A5 /* Build configuration list for PBXNativeTarget "Pods-Luk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				045FA2CE24A9B02584A476C8FF4CD5FB /* Debug */,
+				6C67C39269BACFE91EE7A3D2CD990310 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}

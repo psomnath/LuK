@@ -7,6 +7,7 @@ import Vision
 import AVKit
 import CoreMedia
 import CoreLocation
+import Fuse
 
 class PlateDetectorViewController: UIViewController {
     
@@ -15,7 +16,11 @@ class PlateDetectorViewController: UIViewController {
     private let ambertAlertNetworkFetcher: AmberAlertNextworkFetcher
     private var imageBounds: CGRect?
     private var amberAlerts = [AmberAlertModel]()
+    private var reportedAmberAlertIDs = Set<Int64>()
     private var locationManager: CLLocationManager
+    private var latitude: CLLocationDegrees?
+    private var longitude: CLLocationDegrees?
+    private let operationQueue: LicensePlateMatchOperationQueue
     
     private let videoPreview: UIView = {
        let view = UIView()
@@ -40,7 +45,7 @@ class PlateDetectorViewController: UIViewController {
         self.plateDetector = PlateDetector()
         self.ambertAlertNetworkFetcher = AmberAlertNextworkFetcher()
         self.cameraController = CameraController(fps: 30, sessionPreset: .vga640x480)
-        
+        self.operationQueue = LicensePlateMatchOperationQueue(amberAlertNetworkMatchReport: AmberAlertNetworkMatchReport())
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -140,9 +145,9 @@ class PlateDetectorViewController: UIViewController {
 extension PlateDetectorViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-            let latitude = location.coordinate.latitude
-            let longitude = location.coordinate.longitude
-            print ("\(latitude) \(longitude)")
+            self.latitude = location.coordinate.latitude
+            self.longitude = location.coordinate.longitude
+            print ("\(self.latitude ?? 0) \(self.longitude ?? 0)")
         }
     }
 
@@ -161,10 +166,67 @@ extension PlateDetectorViewController: PlateDetectorDelegate {
     func plateDetector(didDetectPlates plates: [PlateModel]) {
         guard !plates.isEmpty else {
             self.plateLabel.text = nil
+            self.update(plateBounds: [])
             return
         }
         
         self.plateLabel.text = plates.first?.licensePlate
         self.update(plateBounds: plates.compactMap({ $0.box }))
+        
+        for plate in plates {
+            let model = fuzzyMatch(plate: plate.licensePlate)
+            
+            guard let model = model else {
+                continue
+            }
+            
+            let isReported = self.reportedAmberAlertIDs.contains(model.alertId)
+
+            if !isReported{
+                self.reportedAmberAlertIDs.insert(model.alertId)
+                self.requestToCall911(for: model)
+            }
+
+            operationQueue.addOperation(model: model, latitude: self.latitude, longitude: self.longitude) { _ in }
+        }
+    }
+
+    func fuzzyMatch(plate: String) -> AmberAlertModel? {
+        let fuse = Fuse()
+        for alert in self.amberAlerts{
+            
+            let result = fuse.search(alert.licensePlateNo, in: plate)
+
+            if result?.score == 0 {
+                return alert
+            }
+            else if result?.score ?? 1 < 0.2 && result?.score ?? 1 > 0 {
+                print("Moderate match " + alert.licensePlateNo + "" + plate)
+                return alert
+            }
+        }
+        return nil
+    }
+    
+    private func showReportConfirmation(for model: AmberAlertModel) {
+        let alert = UIAlertController(title: "", message: "License plate \(model.licensePlateNo) has been reported to LuK.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    private func requestToCall911(for model: AmberAlertModel) {
+        let alert = UIAlertController(title: "Licence plate match found for \(model.licensePlateNo)", message: "Do you want to call 911?", preferredStyle: .actionSheet)
+
+        alert.addAction(UIAlertAction(title: "Call 911", style: .destructive, handler: { _ in
+            guard let url = URL(string: "tel://\(UserDefaults.standard.phoneNumber)"),
+                UIApplication.shared.canOpenURL(url) else {
+                return
+            }
+
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
 }

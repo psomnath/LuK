@@ -46,7 +46,14 @@ class CameraController: NSObject {
         
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.videoGravity = AVLayerVideoGravity.resizeAspect
-        previewLayer.connection?.videoOrientation = .portrait
+      
+        if let connection = previewLayer.connection {
+            connection.videoOrientation = .portrait
+            if connection.isVideoStabilizationSupported == true {
+                connection.preferredVideoStabilizationMode = .cinematic
+            }
+        }
+
         self.previewLayer = previewLayer
         
         let settings: [String : Any] = [
