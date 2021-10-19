@@ -1,0 +1,43 @@
+
+.create table ActiveAlerts (AlertId: int, CreationTimeStamp: datetime, LicensePlateNo: string, AlertText: string, LicensePlateState: string, SourceJson: dynamic, ExecutionId: guid) 
+
+.create table AlertsMaster (AlertId: int, CreationTimeStamp: datetime, LicensePlateNo: string, AlertText: string, LicensePlateState: string, IsActive: bool, SourceJson: dynamic, ExecutionId: guid) 
+
+.create table MatchedAlerts (AlertId: int, CapturedTimestamp: datetime, LicensePlateNo: string, Latitude: decimal, Longitude: decimal, DeviceId: string, ExecutionId: guid) 
+
+
+.create-or-alter function  GetUpdatesToAlertsMaster {
+    let AlertsRemainActiveInMaster = ()
+    {
+    AlertsMaster
+    | where AlertId !in ((AlertsMaster| where IsActive==false | project AlertId))
+    };
+    AlertsRemainActiveInMaster
+    | join kind=leftouter (ActiveAlerts | project AlertId) on AlertId
+    | where isempty(AlertId1)
+    | project AlertId, CreationTimeStamp = now(),LicensePlateNo,AlertText,LicensePlateState,IsActive=false,SourceJson,ExecutionId = new_guid()
+    | union 
+        (
+            AlertsMaster
+            | project AlertId
+            | join kind=rightouter ActiveAlerts on AlertId
+            | where isempty(AlertId)
+            | project AlertId = AlertId1, CreationTimeStamp,LicensePlateNo,AlertText,LicensePlateState,IsActive=true,SourceJson,ExecutionId
+        )
+}
+
+
+.create-or-alter function with (docstring = "Get Latest Alerts",folder = "Utility") AlertsMaster_Latest {
+let x = toscalar(AlertsMaster 
+| summarize max(ingestion_time()));
+ AlertsMaster | where ingestion_time() > (x - 1s) 
+    and ingestion_time() <= x 
+}
+
+
+.create-or-alter function with (docstring = "Get Latest Matched Alerts",folder = "Utility") MatchedAlerts_Latest {
+let x = toscalar(AlertsMaster 
+| summarize max(ingestion_time()));
+ MatchedAlerts | where ingestion_time() > (x - 1s) 
+    and ingestion_time() <= x 
+}
