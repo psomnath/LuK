@@ -1,0 +1,18 @@
+
+
+//Amber Alert Details
+AlertsMaster  
+| summarize arg_max(CreationTimeStamp, IsActive) by AlertId, LicensePlateNo
+| extend NewAlertId = iff(AlertId==202110152,202110142,AlertId)
+| extend MapTracker=strcat("https://dataexplorer.azure.com/dashboards/09a1134e-090a-48d7-88ae-5ebe9de25e5a?_startTime=", _startTime,"&_endTime=", _endTime,"&_alertID=",NewAlertId,"#90f86729-641e-44c0-b6f3-73517726ca9e")
+| project AlertId, LicensePlateNo, CreationTimeStamp, IsActive=iff(IsActive, "Yes", "No"), MapTracker
+| where _onlyActive =="No" or _onlyActive =="Yes" and IsActive =="Yes"
+| sort by IsActive
+
+//Location on map
+MatchedAlerts
+| extend ReportedTime = tostring(CapturedTimestamp)
+| where Latitude > 0
+| where AlertId == _alertID or _alertID =='All'
+| project ReportedTime, Longitude, Latitude,1
+| render piechart with (kind=map)
