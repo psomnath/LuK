@@ -1,0 +1,1 @@
+docker run -v C:\Users\tonyfaulds\source\repos\LuK\src\LukCamera\src:/tf -w /tf -it espressif/idf:release-v4.0 

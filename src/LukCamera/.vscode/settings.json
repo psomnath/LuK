@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "_kiss_fft_guts.h": "c",
+        "kiss_fft.h": "c",
+        "kiss_fftndr.h": "c"
+    }
+}
